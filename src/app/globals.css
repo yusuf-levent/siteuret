@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #111827;
+  --muted: #5b6472;
+  --teal: #0f766e;
+  --teal-dark: #0b4f4a;
+  --copper: #b77b5b;
+  --cream: #fbf6f0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(15, 118, 110, 0.18);
+}
+
+.map-fallback {
+  background-color: #f6eee8;
+  background-image:
+    linear-gradient(28deg, transparent 48%, rgba(183, 123, 91, 0.22) 49%, transparent 51%),
+    linear-gradient(116deg, transparent 47%, rgba(75, 48, 39, 0.18) 49%, transparent 52%),
+    linear-gradient(rgba(75, 48, 39, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(75, 48, 39, 0.08) 1px, transparent 1px);
+  background-size:
+    180px 180px,
+    230px 230px,
+    42px 42px,
+    42px 42px;
+}
