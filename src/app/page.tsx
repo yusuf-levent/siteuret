@@ -5,122 +5,253 @@ import {
   ArrowUpRight,
   CheckCircle2,
   ChevronDown,
+  Clock,
+  MapPin,
   MessageCircle,
-  Phone,
   Rocket,
   Search,
   ShieldCheck,
   Smartphone,
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Reveal } from "@/components/reveal";
 
-const whatsapp = "https://wa.me/90XXXXXXXXXX";
+const WHATSAPP_PHONE = "905XXXXXXXXX";
+const DEMO_MESSAGE =
+  "Merhaba, berber/güzellik salonum için ücretsiz web sitesi demosu almak istiyorum.";
+
+function whatsappUrl(message = DEMO_MESSAGE) {
+  return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+}
+
+type TemplateCategory = "Berber" | "Güzellik Salonu";
 
 const trustItems = [
-  { icon: Search, text: "Google'da görünürlük" },
+  { icon: Rocket, text: "1 günde yayına hazır" },
   { icon: Smartphone, text: "Mobil uyumlu" },
-  { icon: Rocket, text: "1 günde yayında" },
-  { icon: ShieldCheck, text: "Aylık bakım & güncelleme" },
+  { icon: Search, text: "Google görünürlüğü için temel altyapı" },
+  { icon: MessageCircle, text: "WhatsApp ile hızlı iletişim" },
+  { icon: ShieldCheck, text: "Aylık bakım ve güncelleme" },
 ];
 
-const templates = [
+const templates: Array<{
+  name: string;
+  category: TemplateCategory;
+  style: string;
+  description: string;
+  image: string;
+  sections: string[];
+}> = [
   {
-    name: "Güzellik & Kuaför Salonu",
-    href: "/sablon/salon",
-    active: true,
+    name: "Klasik Berber",
+    category: "Berber",
+    style: "Koyu · Vintage · Ciddi",
+    description:
+      "Usta işi görünüm isteyen geleneksel berberler için güçlü ve güven veren tasarım.",
     image:
-      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=1100&q=82",
+    sections: [
+      "Hero",
+      "Hizmetler",
+      "Fiyat listesi",
+      "Ustalar / ekip",
+      "Galeri",
+      "Google Harita",
+      "WhatsApp randevu",
+    ],
   },
   {
-    name: "Restoran & Kafe",
+    name: "Modern Barber Studio",
+    category: "Berber",
+    style: "Siyah-beyaz · Minimal · Premium",
+    description:
+      "Daha modern ve premium algı isteyen barber studio işletmeleri için temiz yapı.",
     image:
-      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=1100&q=82",
+    sections: [
+      "Güçlü hero",
+      "Hizmet kartları",
+      "Paketler",
+      "Önce/sonra galeri",
+      "Yorumlar",
+      "Randevu CTA",
+    ],
   },
   {
-    name: "Berber",
+    name: "Urban Barber",
+    category: "Berber",
+    style: "Genç · Dinamik · Cesur",
+    description:
+      "Sokak kültürü havası, büyük görsel alan ve kampanya vurgusu isteyen berberler için.",
     image:
-      "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1519500528352-2d1460418d41?auto=format&fit=crop&w=1100&q=82",
+    sections: [
+      "Büyük görsel alan",
+      "Popüler hizmetler",
+      "Kampanya alanı",
+      "Instagram galeri",
+      "Konum ve saatler",
+      "WhatsApp CTA",
+    ],
   },
   {
-    name: "Diş/Sağlık",
+    name: "Soft Beauty Studio",
+    category: "Güzellik Salonu",
+    style: "Soft · Açık tonlar · Zarif",
+    description:
+      "Saç, makyaj, cilt bakımı ve kaş-kirpik hizmetlerini nazik bir dille sunar.",
     image:
-      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1100&q=82",
+    sections: [
+      "Hero",
+      "Hizmetler",
+      "Cilt bakımı",
+      "Makyaj / saç",
+      "Galeri",
+      "Yorumlar",
+      "Randevu CTA",
+    ],
+  },
+  {
+    name: "Luxury Beauty Lounge",
+    category: "Güzellik Salonu",
+    style: "Premium · Altın detay · Lüks",
+    description:
+      "Daha yüksek algı isteyen salonlar için paket, ekip ve galeri odaklı premium şablon.",
+    image:
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1100&q=82",
+    sections: [
+      "Premium hero",
+      "Hizmet paketleri",
+      "Uzman ekip",
+      "Galeri",
+      "SSS",
+      "WhatsApp randevu",
+    ],
+  },
+  {
+    name: "Clean Beauty Clinic",
+    category: "Güzellik Salonu",
+    style: "Ferah · Klinik · Sıcak",
+    description:
+      "Hijyen, güven ve net hizmet açıklaması isteyen güzellik klinikleri için sade yapı.",
+    image:
+      "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1100&q=82",
+    sections: [
+      "Hero",
+      "Hizmet açıklamaları",
+      "Hijyen / güven",
+      "Öncesi-sonrası alanı",
+      "Yorumlar",
+      "Konum / iletişim",
+    ],
   },
 ];
+
+const filters = ["Tümü", "Berber", "Güzellik Salonu"] as const;
 
 const steps = [
   {
-    title: "Ulaşın/demo isteyin",
-    text: "WhatsApp'tan işletmenizi ve ihtiyacınızı yazın; aynı gün dönüş yapalım.",
+    title: "Bize işletmenizi yazın",
+    text: "WhatsApp'tan işletme adınızı, sektörünüzü ve istediğiniz şablonu gönderin.",
   },
   {
-    title: "Ücretsiz taslak",
-    text: "Sektörünüze uygun şık bir taslağı gerçekçi içerikle hazırlayalım.",
+    title: "Ücretsiz demo hazırlayalım",
+    text: "Seçtiğiniz şablonu işletmenize göre düzenleyip size demo olarak gösterelim.",
   },
   {
-    title: "1 günde yayında",
-    text: "Beğendiğiniz tasarımı domain, hosting ve temel SEO ile yayına alalım.",
+    title: "Onay sonrası yayına alalım",
+    text: "Beğenirseniz domain, hosting, temel SEO ve mobil uyumlu şekilde sitenizi yayına alalım.",
   },
+  {
+    title: "Güncellemeleri biz yapalım",
+    text: "Fiyat, hizmet, görsel veya kampanya değişikliklerinde size destek olalım.",
+  },
+];
+
+const whyWebsite = [
+  "Google'da daha profesyonel görünüm",
+  "Hizmet ve fiyatları net gösterme",
+  "WhatsApp ile hızlı iletişim",
+  "Konum ve çalışma saatlerini tek yerde sunma",
+  "Instagram dışı güvenilir vitrin",
+];
+
+const includes = [
+  "Profesyonel web sitesi",
+  "Mobil uyumlu tasarım",
+  "Hosting ve domain kurulum desteği",
+  "Google'da görünürlük için temel altyapı",
+  "WhatsApp iletişim butonu",
+  "Hizmet ve fiyat listesi",
+  "Konum ve çalışma saatleri",
+  "Aylık küçük içerik güncellemeleri",
 ];
 
 const plans = [
   {
     name: "Başlangıç",
     price: "4.500₺ kurulum + 350₺/ay",
-    note: "Yeni başlayan işletmeler için hızlı ve ekonomik paket.",
+    note: "Yeni başlayan berber ve güzellik salonları için hızlı, ekonomik ve profesyonel çözüm.",
+    popular: false,
   },
   {
     name: "Yıllık",
-    price: "4.500₺ + 3.500₺/yıl",
-    note: "1 ay bedava bakım ve daha düşük yıllık maliyet.",
+    price: "4.500₺ kurulum + 3.500₺/yıl",
+    note: "Aylık ödeme yerine yıllık bakım almak isteyen işletmeler için daha avantajlı paket.",
+    popular: true,
   },
-];
-
-const includes = [
-  "Profesyonel web sitesi",
-  "Hosting ve domain kurulumu",
-  "Google'da görünürlük altyapısı",
-  "Aylık içerik güncelleme",
 ];
 
 const faqs = [
   {
-    question: "Ne kadar sürede yayına çıkar?",
+    question: "Web sitem kaç günde hazır olur?",
     answer:
-      "İçerikler ve temel bilgiler hazırsa demo onayından sonra çoğu işletme sitesi 1 gün içinde yayına alınır.",
+      "İşletme bilgileriniz ve görselleriniz hazırsa çoğu site demo onayından sonra 1 gün içinde yayına alınabilir.",
   },
   {
     question: "Paketlere neler dahil?",
     answer:
-      "Web sitesi kurulumu, mobil uyumlu tasarım, hosting, domain yönlendirme, temel SEO ve aylık bakım dahildir.",
+      "Web sitesi tasarımı, mobil uyum, hosting/domain kurulum desteği, WhatsApp butonu, hizmet listesi, konum bilgisi ve temel Google görünürlük altyapısı dahildir.",
   },
   {
     question: "Sonradan değişiklik yapabilir miyim?",
     answer:
-      "Evet. Fotoğraf, fiyat, hizmet, çalışma saati ve kampanya gibi düzenli güncellemeler aylık bakım kapsamında yapılır.",
+      "Evet. Hizmet, fiyat, görsel, kampanya veya çalışma saati gibi küçük güncellemeler bakım paketi kapsamında yapılabilir.",
   },
   {
     question: "Instagram'ım var, yine site gerekir mi?",
     answer:
-      "Instagram görünürlük için iyi bir kanal; web sitesi ise Google'da bulunmanızı, güven vermenizi ve randevu iletişimini kolaylaştırır.",
+      "Evet. Instagram önemlidir ama web sitesi işletmenizi Google'da daha güvenilir gösterir. Müşteriler hizmetlerinizi, konumunuzu, fiyatlarınızı ve iletişim bilgilerinizi tek sayfada görebilir.",
+  },
+  {
+    question: "Randevu sistemi olacak mı?",
+    answer:
+      "İlk aşamada WhatsApp ile hızlı randevu yönlendirmesi yapılır. İstenirse ileride özel randevu formu veya harici randevu sistemi eklenebilir.",
+  },
+  {
+    question: "Gerçekten satış getirir mi?",
+    answer:
+      "Site tek başına mucize yaratmaz; ancak Google'da daha profesyonel görünmenizi, müşterinin güven duymasını ve size daha kolay ulaşmasını sağlar.",
   },
 ];
 
 function PrimaryButton({
   href,
   children,
+  className = "",
 }: {
   href: string;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
     <a
-      className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#0f766e] px-5 text-sm font-semibold text-white shadow-lg shadow-teal-950/20 transition hover:bg-[#0b5d57] focus:outline-none focus:ring-4 focus:ring-teal-200"
+      className={`inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#0f766e] px-5 text-sm font-semibold text-white shadow-lg shadow-teal-950/20 transition hover:bg-[#0b5d57] focus:outline-none focus:ring-4 focus:ring-teal-200 ${className}`}
       href={href}
       rel="noreferrer"
-      target={href.startsWith("http") ? "_blank" : undefined}
+      target="_blank"
     >
       {children}
     </a>
@@ -130,69 +261,106 @@ function PrimaryButton({
 function SectionHeading({
   title,
   text,
+  tone = "light",
 }: {
   title: string;
   text: string;
+  tone?: "light" | "dark";
 }) {
   return (
-    <div className="mx-auto max-w-2xl text-center">
-      <h2 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">
+    <div className="mx-auto max-w-3xl text-center">
+      <h2
+        className={`text-3xl font-semibold tracking-tight md:text-5xl ${
+          tone === "dark" ? "text-white" : "text-slate-950"
+        }`}
+      >
         {title}
       </h2>
-      <p className="mt-4 text-base leading-7 text-slate-600">{text}</p>
+      <p
+        className={`mt-4 text-base leading-7 md:text-lg ${
+          tone === "dark" ? "text-white/70" : "text-slate-600"
+        }`}
+      >
+        {text}
+      </p>
     </div>
   );
 }
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(0);
+  const [activeFilter, setActiveFilter] =
+    useState<(typeof filters)[number]>("Tümü");
+
+  const visibleTemplates = useMemo(() => {
+    if (activeFilter === "Tümü") {
+      return templates;
+    }
+
+    return templates.filter((template) => template.category === activeFilter);
+  }, [activeFilter]);
 
   return (
     <main className="min-h-screen bg-white text-slate-950">
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/15 bg-slate-950/80 text-white backdrop-blur-xl">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/15 bg-slate-950/85 text-white backdrop-blur-xl">
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
           <Link className="text-xl font-bold tracking-tight" href="/">
             siteüret
           </Link>
-          <div className="hidden items-center gap-7 text-sm font-medium text-white/75 md:flex">
+          <div className="hidden items-center gap-6 text-sm font-medium text-white/75 md:flex">
             <a href="#sablonlar">Şablonlar</a>
             <a href="#nasil-calisir">Nasıl Çalışır</a>
             <a href="#fiyatlar">Fiyatlar</a>
+            <a href="#sss">SSS</a>
             <a href="#iletisim">İletişim</a>
           </div>
-          <a
-            className="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-[#16a34a] px-4 text-sm font-semibold text-white shadow-lg shadow-emerald-950/30 transition hover:bg-[#15803d]"
-            href={whatsapp}
-            rel="noreferrer"
-            target="_blank"
+          <PrimaryButton
+            className="hidden h-10 bg-[#16a34a] px-4 shadow-emerald-950/30 hover:bg-[#15803d] sm:inline-flex"
+            href={whatsappUrl()}
           >
             <MessageCircle size={17} />
-            <span className="hidden sm:inline">Ücretsiz Demo Al</span>
-            <span className="sm:hidden">Demo</span>
-          </a>
+            Ücretsiz Demo Al
+          </PrimaryButton>
+          <PrimaryButton
+            className="h-10 bg-[#16a34a] px-3 shadow-emerald-950/30 hover:bg-[#15803d] sm:hidden"
+            href={whatsappUrl()}
+          >
+            <MessageCircle size={17} />
+            Demo
+          </PrimaryButton>
         </nav>
       </header>
 
       <section
-        className="relative isolate flex min-h-[82svh] items-center overflow-hidden bg-slate-950 px-5 pb-14 pt-28 text-white md:pb-20"
+        className="relative isolate flex min-h-[86svh] items-center overflow-hidden bg-slate-950 px-5 pb-16 pt-28 text-white"
         style={{
           backgroundImage:
-            "linear-gradient(90deg, rgba(2,6,23,.92), rgba(15,23,42,.72) 44%, rgba(15,118,110,.28)), url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85')",
+            "linear-gradient(90deg, rgba(2,6,23,.94), rgba(15,23,42,.74) 45%, rgba(15,118,110,.24)), url('https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?auto=format&fit=crop&w=1800&q=85')",
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
       >
         <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white to-transparent" />
-        <div className="relative mx-auto w-full max-w-7xl">
-          <Reveal className="max-w-3xl">
-            <h1 className="max-w-3xl text-5xl font-semibold leading-[1.02] tracking-tight text-white md:text-7xl">
-              İşletmenize 1 günde profesyonel web sitesi.
+        <div className="relative mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+          <Reveal>
+            <h1 className="max-w-4xl text-4xl font-semibold leading-[1.03] tracking-tight text-white sm:text-5xl md:text-7xl">
+              Berber ve güzellik salonunuz için 1 günde profesyonel web sitesi.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/80 md:text-xl">
-              Google&apos;da çıkın, müşteri kaçırmayın. Mobil uyumlu, şık, hızlı.
+              Google&apos;da daha güvenilir görünün, hizmetlerinizi net gösterin,
+              müşterileriniz size tek tıkla ulaşsın. Mobil uyumlu, hızlı ve şık
+              web siteleri hazırlıyoruz.
             </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3 text-sm font-semibold text-white/80">
+              <span className="rounded-md bg-white/10 px-3 py-2">
+                Önce ücretsiz demo, sonra karar
+              </span>
+              <span className="rounded-md bg-white/10 px-3 py-2">
+                Sürpriz maliyet yok
+              </span>
+            </div>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <PrimaryButton href={whatsapp}>
+              <PrimaryButton href={whatsappUrl()}>
                 <MessageCircle size={18} />
                 Ücretsiz Demo Al
               </PrimaryButton>
@@ -205,11 +373,41 @@ export default function Home() {
               </a>
             </div>
           </Reveal>
+
+          <Reveal delay={0.08}>
+            <div className="rounded-lg border border-white/15 bg-white/10 p-4 shadow-2xl shadow-black/30 backdrop-blur-md">
+              <div className="rounded-md bg-slate-950/80 p-4">
+                <div className="flex items-center justify-between border-b border-white/10 pb-3 text-sm font-semibold">
+                  <span>Nova Barber</span>
+                  <span className="text-[#5eead4]">Randevu Al</span>
+                </div>
+                <div className="grid gap-4 pt-5 sm:grid-cols-[1fr_0.9fr] sm:items-center">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#5eead4]">
+                      Hayali demo mockup
+                    </p>
+                    <h2 className="mt-3 text-3xl font-semibold leading-tight">
+                      Mahallenizin modern berberi
+                    </h2>
+                    <p className="mt-3 text-sm leading-6 text-white/65">
+                      Hizmetler, fiyatlar, çalışma saatleri ve WhatsApp tek
+                      sayfada.
+                    </p>
+                  </div>
+                  <img
+                    alt="Hayali Nova Barber web sitesi mockup görseli"
+                    className="aspect-[4/3] rounded-md object-cover"
+                    src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=900&q=82"
+                  />
+                </div>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="border-y border-slate-200 bg-white px-5 py-6">
-        <div className="mx-auto grid max-w-7xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto grid max-w-7xl gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {trustItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -228,45 +426,81 @@ export default function Home() {
       <section id="sablonlar" className="px-5 py-24">
         <Reveal>
           <SectionHeading
-            text="Hazır altyapı, sektörünüze göre özelleştirilen içerik ve hızlı yayın akışıyla çalışır."
-            title="Şablonlar"
+            text="Şimdilik sadece berberler ve güzellik salonları için hazırlanmış, işletmenize göre uyarlanabilir şablonlar."
+            title="Berber ve güzellik salonu şablonları"
           />
         </Reveal>
-        <div className="mx-auto mt-12 grid max-w-7xl gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {templates.map((template, index) => (
-            <Reveal delay={index * 0.06} key={template.name}>
-              <article className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-                <div className="relative aspect-[4/3] overflow-hidden">
+
+        <div className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-2">
+          {filters.map((filter) => (
+            <button
+              className={`h-10 rounded-md px-4 text-sm font-semibold transition ${
+                activeFilter === filter
+                  ? "bg-slate-950 text-white"
+                  : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+              }`}
+              key={filter}
+              onClick={() => setActiveFilter(filter)}
+              type="button"
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
+
+        <div className="mx-auto mt-12 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {visibleTemplates.map((template, index) => (
+            <Reveal delay={index * 0.04} key={template.name}>
+              <article className="flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+                <div className="relative aspect-[16/10] overflow-hidden">
                   <img
-                    alt={`${template.name} şablon önizlemesi`}
+                    alt={`${template.name} şablon önizleme mockup alanı`}
                     className="h-full w-full object-cover"
                     src={template.image}
                   />
                   <div className="absolute left-3 top-3 rounded-md bg-white/90 px-3 py-1 text-xs font-bold text-slate-900">
-                    {template.active ? "AKTİF" : "Yakında"}
+                    {template.category}
                   </div>
                 </div>
-                <div className="p-5">
-                  <h3 className="text-lg font-semibold text-slate-950">
+                <div className="flex flex-1 flex-col p-6">
+                  <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#0f766e]">
+                    {template.style}
+                  </div>
+                  <h3 className="mt-3 text-2xl font-semibold text-slate-950">
                     {template.name}
                   </h3>
-                  {template.active ? (
+                  <p className="mt-3 leading-7 text-slate-600">
+                    {template.description}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {template.sections.slice(0, 5).map((section) => (
+                      <span
+                        className="rounded-md bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700"
+                        key={section}
+                      >
+                        {section}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-auto grid gap-3 pt-7 sm:grid-cols-2">
                     <Link
-                      className="mt-5 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-slate-950 px-4 text-sm font-semibold text-white transition hover:bg-[#0f766e]"
-                      href={template.href}
+                      className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-slate-950 px-4 text-sm font-semibold text-white transition hover:bg-[#0f766e]"
+                      href="/sablon/salon"
                     >
                       Canlı Önizle
                       <ArrowUpRight size={16} />
                     </Link>
-                  ) : (
-                    <button
-                      className="mt-5 h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-4 text-sm font-semibold text-slate-400"
-                      disabled
-                      type="button"
+                    <a
+                      className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-[#0f766e]/30 px-4 text-sm font-semibold text-[#0f766e] transition hover:bg-teal-50"
+                      href={whatsappUrl(
+                        `Merhaba, ${template.name} şablonunu işletmeme uyarlatmak için ücretsiz demo istiyorum.`,
+                      )}
+                      rel="noreferrer"
+                      target="_blank"
                     >
-                      Yakında
-                    </button>
-                  )}
+                      Demo İste
+                    </a>
+                  </div>
                 </div>
               </article>
             </Reveal>
@@ -275,18 +509,17 @@ export default function Home() {
       </section>
 
       <section id="nasil-calisir" className="bg-slate-950 px-5 py-24 text-white">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
-            Nasıl Çalışır
-          </h2>
-          <p className="mt-4 text-base leading-7 text-white/70">
-            Süreç kısa, net ve işletmenizin günlük akışını yormayacak şekilde ilerler.
-          </p>
+        <Reveal>
+          <SectionHeading
+            text="İşletme sahibi için süreç kısa, anlaşılır ve zahmetsiz ilerler."
+            title="Web sitenizi almak bu kadar kolay."
+            tone="dark"
+          />
         </Reveal>
-        <div className="mx-auto mt-12 grid max-w-6xl gap-5 md:grid-cols-3">
+        <div className="mx-auto mt-12 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-4">
           {steps.map((step, index) => (
-            <Reveal delay={index * 0.08} key={step.title}>
-              <article className="rounded-lg border border-white/10 bg-white/[0.04] p-6">
+            <Reveal delay={index * 0.06} key={step.title}>
+              <article className="h-full rounded-lg border border-white/10 bg-white/[0.04] p-6">
                 <div className="flex h-11 w-11 items-center justify-center rounded-md bg-[#0f766e] text-lg font-bold">
                   {index + 1}
                 </div>
@@ -300,57 +533,97 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="fiyatlar" className="bg-slate-50 px-5 py-24">
+      <section className="bg-slate-50 px-5 py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <Reveal>
+            <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#0f766e]">
+              Neden web sitesi?
+            </p>
+            <h2 className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-slate-950 md:text-5xl">
+              Instagram yetmez. Müşteri sizi Google&apos;da da arıyor.
+            </h2>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+              Bir müşteri berber, kuaför veya güzellik salonu aradığında genelde
+              Google&apos;dan konuma, yorumlara, hizmetlere ve iletişim bilgilerine
+              bakar. Profesyonel bir web sitesi, işletmenizi daha güvenilir
+              gösterir ve müşterinin size ulaşmasını kolaylaştırır.
+            </p>
+          </Reveal>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {whyWebsite.map((item, index) => (
+              <Reveal delay={index * 0.04} key={item}>
+                <div className="flex h-full items-start gap-3 rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                  <CheckCircle2 className="mt-0.5 text-[#0f766e]" size={20} />
+                  <span className="font-semibold leading-6 text-slate-800">
+                    {item}
+                  </span>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="fiyatlar" className="px-5 py-24">
         <Reveal>
           <SectionHeading
-            text="Site, hosting, domain, temel görünürlük ve düzenli güncelleme aynı pakette."
+            text="Önce ücretsiz demo hazırlanır. Beğenirseniz devam ederiz."
             title="Fiyatlar"
           />
         </Reveal>
-        <div className="mx-auto mt-12 grid max-w-5xl gap-5 md:grid-cols-2">
+        <div className="mx-auto mt-12 grid max-w-6xl gap-5 md:grid-cols-2">
           {plans.map((plan, index) => (
             <Reveal delay={index * 0.08} key={plan.name}>
-              <article className="rounded-lg border border-slate-200 bg-white p-7 shadow-sm">
-                <h3 className="text-2xl font-semibold text-slate-950">
+              <article
+                className={`relative h-full rounded-lg border bg-white p-7 shadow-sm ${
+                  plan.popular
+                    ? "border-[#0f766e] shadow-xl shadow-teal-950/10"
+                    : "border-slate-200"
+                }`}
+              >
+                {plan.popular && (
+                  <div className="absolute right-5 top-5 rounded-md bg-[#0f766e] px-3 py-1 text-xs font-bold text-white">
+                    En Popüler
+                  </div>
+                )}
+                <h3 className="pr-28 text-2xl font-semibold text-slate-950">
                   {plan.name}
                 </h3>
                 <p className="mt-4 text-3xl font-bold tracking-tight text-[#0f766e]">
                   {plan.price}
                 </p>
                 <p className="mt-3 leading-7 text-slate-600">{plan.note}</p>
-                <div className="mt-7 space-y-3">
+                <div className="mt-6 rounded-md bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700">
+                  Sürpriz maliyet yok. Demo ücretsiz hazırlanır.
+                </div>
+                <div className="mt-7 grid gap-3">
                   {includes.map((item) => (
-                    <div className="flex items-center gap-3" key={item}>
-                      <CheckCircle2 className="text-[#0f766e]" size={19} />
-                      <span className="text-sm font-medium text-slate-700">
+                    <div className="flex items-start gap-3" key={item}>
+                      <CheckCircle2 className="mt-0.5 text-[#0f766e]" size={18} />
+                      <span className="text-sm font-medium leading-6 text-slate-700">
                         {item}
                       </span>
                     </div>
                   ))}
                 </div>
-                <a
-                  className="mt-8 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-slate-950 px-5 text-sm font-semibold text-white transition hover:bg-[#0f766e]"
-                  href={whatsapp}
-                  rel="noreferrer"
-                  target="_blank"
-                >
+                <PrimaryButton className="mt-8 w-full" href={whatsappUrl()}>
                   <MessageCircle size={17} />
                   Ücretsiz Demo Al
-                </a>
+                </PrimaryButton>
               </article>
             </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="px-5 py-24">
+      <section id="sss" className="bg-slate-50 px-5 py-24">
         <Reveal>
           <SectionHeading
-            text="Satın almadan önce en çok sorulan konular."
+            text="Karar vermeden önce en çok sorulan konular."
             title="SSS"
           />
         </Reveal>
-        <div className="mx-auto mt-10 max-w-3xl divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white">
+        <div className="mx-auto mt-10 max-w-4xl divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white shadow-sm">
           {faqs.map((faq, index) => {
             const isOpen = openFaq === index;
             return (
@@ -381,54 +654,71 @@ export default function Home() {
       </section>
 
       <section id="iletisim" className="bg-[#0f766e] px-5 py-20 text-white">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+        <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-center">
           <Reveal>
-            <h2 className="max-w-2xl text-3xl font-semibold tracking-tight md:text-5xl">
+            <h2 className="max-w-3xl text-3xl font-semibold tracking-tight md:text-5xl">
               İşletmeniz için ücretsiz demo isteyin.
             </h2>
-            <p className="mt-4 max-w-2xl text-lg leading-8 text-white/75">
-              Kısa bir görüşmeyle sektörünüze uygun taslağı belirleyelim.
+            <p className="mt-4 max-w-2xl text-lg leading-8 text-white/78">
+              Berberiniz veya güzellik salonunuz için uygun şablonu seçelim,
+              işletmenize özel ücretsiz bir demo hazırlayalım.
             </p>
           </Reveal>
-          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-            <a
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-white px-5 text-sm font-semibold text-[#0f766e] transition hover:bg-slate-100"
-              href={whatsapp}
-              rel="noreferrer"
-              target="_blank"
-            >
-              <MessageCircle size={18} />
-              WhatsApp
-            </a>
-            <a
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/35 px-5 text-sm font-semibold text-white transition hover:bg-white/10"
-              href="tel:+902120000000"
-            >
-              <Phone size={18} />
-              Telefon
-            </a>
-          </div>
+          <Reveal delay={0.08}>
+            <div className="rounded-lg border border-white/18 bg-white/10 p-5 backdrop-blur-md">
+              <div className="flex items-center gap-3 text-sm font-semibold text-white/78">
+                <Clock size={18} />
+                Ortalama demo hazırlık: 1 iş günü
+              </div>
+              <div className="mt-4 flex items-center gap-3 text-sm font-semibold text-white/78">
+                <MapPin size={18} />
+                Yerel berber ve güzellik salonları odağı
+              </div>
+              <PrimaryButton
+                className="mt-6 w-full bg-white text-[#0f766e] hover:bg-slate-100"
+                href={whatsappUrl()}
+              >
+                <MessageCircle size={18} />
+                WhatsApp&apos;tan Demo İste
+              </PrimaryButton>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      <footer className="bg-slate-950 px-5 py-10 text-white">
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 md:flex-row">
+      <footer className="bg-slate-950 px-5 pb-24 pt-10 text-white sm:pb-10">
+        <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1.3fr_0.7fr_0.7fr]">
           <div>
             <div className="text-xl font-bold">siteüret</div>
             <p className="mt-3 max-w-md text-sm leading-6 text-white/60">
-              Yerel işletmeler için hızlı, şık, mobil uyumlu ve yönetilebilir web
-              siteleri.
+              Yerel berberler ve güzellik salonları için hızlı, şık, mobil
+              uyumlu web siteleri.
             </p>
           </div>
           <div className="grid gap-2 text-sm text-white/70">
-            <a href={whatsapp} rel="noreferrer" target="_blank">
+            <a href="#sablonlar">Şablonlar</a>
+            <a href="#nasil-calisir">Nasıl Çalışır</a>
+            <a href="#fiyatlar">Fiyatlar</a>
+            <a href="#sss">SSS</a>
+          </div>
+          <div className="grid content-start gap-2 text-sm text-white/70">
+            <a href={whatsappUrl()} rel="noreferrer" target="_blank">
               WhatsApp ile iletişim
             </a>
-            <a href="tel:+902120000000">+90 212 000 00 00</a>
             <span>© 2026 siteüret</span>
           </div>
         </div>
       </footer>
+
+      <a
+        className="fixed inset-x-4 bottom-4 z-50 inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#16a34a] text-sm font-bold text-white shadow-2xl shadow-emerald-950/30 sm:hidden"
+        href={whatsappUrl()}
+        rel="noreferrer"
+        target="_blank"
+      >
+        <MessageCircle size={18} />
+        Ücretsiz Demo Al
+      </a>
     </main>
   );
 }

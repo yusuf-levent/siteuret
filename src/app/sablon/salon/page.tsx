@@ -252,7 +252,7 @@ export default function SalonPage() {
             {salonConfig.metinler.yorumlarBaslik}
           </h2>
           <p className="mt-4 leading-8 text-[#7b6b62]">
-            5.0 Google Puanı · {salonConfig.metinler.yorumlarAlt}
+            Demo yorum alanı · {salonConfig.metinler.yorumlarAlt}
           </p>
         </Reveal>
         <div className="mx-auto mt-12 grid max-w-6xl gap-5 md:grid-cols-3">

@@ -64,30 +64,31 @@ export type SalonConfig = {
 };
 
 export const salonConfig = {
-  isletmeAdi: "SüSü Saç & Güzellik",
-  slogan: "Kişisel bakımda zarif, hijyenik ve konforlu deneyim.",
+  isletmeAdi: "Aura Beauty Studio",
+  slogan: "Güzellik salonları için hazırlanmış örnek web sitesi demosu.",
   sehir: "İstanbul",
-  mahalle: "Nişantaşı",
-  telefon: "+90 212 000 00 00",
-  whatsapp: "https://wa.me/90XXXXXXXXXX",
-  adres: "Teşvikiye Mah. Vali Konağı Cad. No: 24, Şişli / İstanbul",
-  instagram: "https://instagram.com/susu.guzellik",
+  mahalle: "Merkez",
+  telefon: "+90 5XX XXX XX XX",
+  whatsapp:
+    "https://wa.me/905XXXXXXXXX?text=Merhaba,%20g%C3%BCzellik%20salonum%20i%C3%A7in%20%C3%BCcretsiz%20web%20sitesi%20demosu%20almak%20istiyorum.",
+  adres: "Örnek Mahalle, Demo Cadde No: 10 / İstanbul",
+  instagram: "https://example.com/aura-beauty-studio",
   mapEmbedUrl:
-    "https://maps.google.com/maps?q=Nisantasi%20Istanbul&t=&z=14&ie=UTF8&iwloc=&output=embed",
+    "https://maps.google.com/maps?q=Istanbul&t=&z=12&ie=UTF8&iwloc=&output=embed",
   heroGorsel:
     "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1800&q=85",
   hakkimizdaGorsel:
     "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=1200&q=85",
-  googleYorumLinki: "https://maps.google.com/?q=Nisantasi%20Istanbul",
+  googleYorumLinki: "#yorumlar",
   calismaSaatleri: [
     "Pazartesi - Cuma: 10.00 - 20.00",
     "Cumartesi: 10.00 - 19.00",
     "Pazar: Randevu ile",
   ],
   istatistikler: [
-    { deger: 1000, ek: "+", etiket: "Mutlu Müşteri" },
-    { deger: 12, ek: "+", etiket: "Uzman Kadro" },
-    { deger: 5, ek: ".0", etiket: "Google Puanı" },
+    { deger: 1200, ek: "+", etiket: "Demo Randevu" },
+    { deger: 10, ek: "+", etiket: "Hizmet Alanı" },
+    { deger: 24, ek: " sa", etiket: "WhatsApp Dönüş" },
   ],
   hizmetler: [
     {
@@ -161,19 +162,19 @@ export const salonConfig = {
   ],
   yorumlar: [
     {
-      isim: "Ece Y.",
+      isim: "Elif K.",
       metin:
         "Saç rengimi ilk defa bu kadar doğal ve parlak gördüm. Ekip çok ilgili, ortam da tertemiz.",
       zaman: "2 hafta önce",
     },
     {
-      isim: "Melis K.",
+      isim: "Mina A.",
       metin:
         "Gelin makyajım tüm gün bozulmadı. Randevu saatine sadık kalmaları ayrıca çok iyi.",
       zaman: "1 ay önce",
     },
     {
-      isim: "Derya A.",
+      isim: "Derya S.",
       metin:
         "Kalıcı oje ve bakım için düzenli gidiyorum. Her seferinde özenli ve sakin bir deneyim.",
       zaman: "3 ay önce",
@@ -194,11 +195,11 @@ export const salonConfig = {
     hakkimizdaAlt:
       "Güzellik bakımını aceleye getirmeyen, sıcak ve özenli bir salon.",
     hakkimizdaMetin:
-      "SüSü Saç & Güzellik, Nişantaşı'nda modern teknikleri kişisel ilgiyle birleştirir. Her randevuda hijyen, zaman planı ve doğal görünüm önceliğimizdir.",
+      "Aura Beauty Studio, güzellik salonları için hazırlanmış hayali bir demo markadır. Bu şablon; hizmetleri, fiyat bilgisini, galeri alanını, yorum bölümünü ve WhatsApp randevu akışını tek sayfada profesyonel şekilde göstermek için tasarlanmıştır.",
     ozellikler: ["Müşteri Odaklı", "Hijyenik Ortam", "Uzman Kadro"],
     yorumlarBaslik: "Misafir yorumları",
     yorumlarAlt:
-      "Doğrulanmış Google yorumlarından seçilen deneyimler.",
+      "Gerçek müşteri yorumu değildir; tasarım görünümünü göstermek için eklenen demo yorumlardır.",
     tumYorumlar: "Tüm Yorumları Gör",
     galeriBaslik: "Galeri",
     galeriAlt:
@@ -231,7 +232,7 @@ export const salonConfig = {
     {
       soru: "Konumunuz kolay bulunuyor mu?",
       cevap:
-        "Salonumuz Nişantaşı merkezde, toplu taşıma ve otopark noktalarına yakın bir konumdadır.",
+        "Bu sayfa demo olduğu için adres alanı örnek olarak gösterilir. Gerçek işletmede harita ve yol tarifi bilgisi işletmenize göre düzenlenir.",
     },
   ],
 } satisfies SalonConfig;

@@ -13,9 +13,9 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "siteüret | 1 günde profesyonel web sitesi",
+  title: "siteüret | Berber ve güzellik salonu web siteleri",
   description:
-    "siteüret, yerel işletmeler için mobil uyumlu, hızlı ve şık web siteleri üretir.",
+    "Berberler ve güzellik salonları için 1 günde yayına hazır, mobil uyumlu profesyonel web siteleri.",
 };
 
 export default function RootLayout({

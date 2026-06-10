@@ -4,10 +4,18 @@ Next.js App Router ile hazırlanmış statik export web sitesi.
 
 ## Sayfalar
 
-- `/` - siteüret ajans tanıtım sayfası
-- `/sablon/salon/` - yeniden kullanılabilir güzellik salonu şablonu
+- `/` - berber ve güzellik salonlarına özel siteüret tanıtım sayfası
+- `/sablon/salon/` - yeniden kullanılabilir demo güzellik salonu şablonu
 
 Salon demo içeriği kökteki `config/salon.ts` dosyasından yönetilir.
+Gerçek marka, telefon, yorum veya adres bilgisi kullanılmaz; yayına alınacak
+işletme için bu alanlar ayrıca düzenlenir.
+
+## Güvenlik
+
+`public/_headers` dosyası Cloudflare Workers Static Assets ve Pages tarafında
+güvenlik başlıklarını uygular. Build sonrasında bu dosya `out/_headers` olarak
+çıktıya dahil edilir.
 
 ## Komutlar
 
