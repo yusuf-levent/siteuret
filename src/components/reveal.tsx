@@ -66,7 +66,7 @@ export function CountUp({
   return (
     <div ref={ref}>
       <div
-        className={`text-3xl font-semibold tracking-tight ${
+        className={`text-3xl font-semibold ${
           tone === "light" ? "text-white" : "text-[#2b2522]"
         }`}
       >

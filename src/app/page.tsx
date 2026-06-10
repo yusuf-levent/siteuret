@@ -25,6 +25,91 @@ function whatsappUrl(message = DEMO_MESSAGE) {
   return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
 }
 
+function templatePath(name: string) {
+  const slugs: Record<string, string> = {
+    "Klasik Berber": "klasik-berber",
+    "Premium Barber Studio": "premium-barber-studio",
+    "Urban Fade": "urban-fade",
+    "Soft Beauty Studio": "soft-beauty-studio",
+    "Luxury Beauty Lounge": "luxury-beauty-lounge",
+    "Clean Beauty Clinic": "clean-beauty-clinic",
+  };
+
+  return `/sablon/${slugs[name] ?? "soft-beauty-studio"}`;
+}
+
+function cardTheme(name: string) {
+  if (name === "Klasik Berber") {
+    return {
+      article: "border-[#5b3825] bg-[#251812] text-[#f8ead5]",
+      label: "bg-[#d39b55] text-[#251812]",
+      style: "text-[#d39b55]",
+      text: "text-[#f8ead5]/72",
+      chip: "bg-[#3a251a] text-[#f8ead5]",
+      button: "bg-[#d39b55] text-[#251812] hover:bg-[#c08a48]",
+      outline: "border-[#d39b55]/40 text-[#f8ead5] hover:bg-[#d39b55]/12",
+    };
+  }
+
+  if (name === "Premium Barber Studio") {
+    return {
+      article: "border-black bg-[#f6f5ef] text-black",
+      label: "bg-black text-white",
+      style: "text-black",
+      text: "text-black/62",
+      chip: "bg-white text-black",
+      button: "bg-black text-white hover:bg-[#2a2a2a]",
+      outline: "border-black/25 text-black hover:bg-white",
+    };
+  }
+
+  if (name === "Urban Fade") {
+    return {
+      article: "border-[#d7ff38] bg-[#101010] text-white",
+      label: "bg-[#d7ff38] text-black",
+      style: "text-[#d7ff38]",
+      text: "text-white/72",
+      chip: "bg-white text-black",
+      button: "bg-[#ff3d81] text-white hover:bg-[#df2d6c]",
+      outline: "border-[#d7ff38]/50 text-[#d7ff38] hover:bg-[#d7ff38]/10",
+    };
+  }
+
+  if (name === "Soft Beauty Studio") {
+    return {
+      article: "border-[#efd3dc] bg-[#fff7f8] text-[#3c2b32]",
+      label: "bg-[#d98aa8] text-white",
+      style: "text-[#c67595]",
+      text: "text-[#755763]",
+      chip: "bg-white text-[#8f6073]",
+      button: "bg-[#d98aa8] text-white hover:bg-[#c67595]",
+      outline: "border-[#d98aa8]/35 text-[#9b6077] hover:bg-white",
+    };
+  }
+
+  if (name === "Luxury Beauty Lounge") {
+    return {
+      article: "border-[#d5b16b] bg-[#2b1019] text-[#f7ead9]",
+      label: "bg-[#d5b16b] text-[#2b1019]",
+      style: "text-[#d5b16b]",
+      text: "text-[#f7ead9]/72",
+      chip: "bg-[#421927] text-[#f7ead9]",
+      button: "bg-[#d5b16b] text-[#2b1019] hover:bg-[#c39b51]",
+      outline: "border-[#d5b16b]/45 text-[#f7ead9] hover:bg-[#d5b16b]/12",
+    };
+  }
+
+  return {
+    article: "border-[#bde8eb] bg-[#eef8fb] text-[#102033]",
+    label: "bg-[#2aa7a3] text-white",
+    style: "text-[#238b88]",
+    text: "text-slate-600",
+    chip: "bg-white text-[#238b88]",
+    button: "bg-[#2aa7a3] text-white hover:bg-[#238b88]",
+    outline: "border-[#2aa7a3]/35 text-[#238b88] hover:bg-white",
+  };
+}
+
 type TemplateCategory = "Berber" | "Güzellik Salonu";
 
 const trustItems = [
@@ -62,11 +147,11 @@ const templates: Array<{
     ],
   },
   {
-    name: "Modern Barber Studio",
+    name: "Premium Barber Studio",
     category: "Berber",
-    style: "Siyah-beyaz · Minimal · Premium",
+    style: "Siyah-beyaz · Editorial · Premium",
     description:
-      "Daha modern ve premium algı isteyen barber studio işletmeleri için temiz yapı.",
+      "Premium erkek bakım stüdyoları için geniş boşluklu, editorial siyah-beyaz tasarım.",
     image:
       "https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=1100&q=82",
     sections: [
@@ -79,11 +164,11 @@ const templates: Array<{
     ],
   },
   {
-    name: "Urban Barber",
+    name: "Urban Fade",
     category: "Berber",
-    style: "Genç · Dinamik · Cesur",
+    style: "Genç · Poster · Enerjik",
     description:
-      "Sokak kültürü havası, büyük görsel alan ve kampanya vurgusu isteyen berberler için.",
+      "Genç kitleye hitap eden enerjik urban barber tasarımı; büyük poster hero ve hızlı CTA akışı.",
     image:
       "https://images.unsplash.com/photo-1519500528352-2d1460418d41?auto=format&fit=crop&w=1100&q=82",
     sections: [
@@ -270,7 +355,7 @@ function SectionHeading({
   return (
     <div className="mx-auto max-w-3xl text-center">
       <h2
-        className={`text-3xl font-semibold tracking-tight md:text-5xl ${
+        className={`text-3xl font-semibold md:text-5xl ${
           tone === "dark" ? "text-white" : "text-slate-950"
         }`}
       >
@@ -304,7 +389,7 @@ export default function Home() {
     <main className="min-h-screen bg-white text-slate-950">
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/15 bg-slate-950/85 text-white backdrop-blur-xl">
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-          <Link className="text-xl font-bold tracking-tight" href="/">
+          <Link className="text-xl font-bold" href="/">
             siteüret
           </Link>
           <div className="hidden items-center gap-6 text-sm font-medium text-white/75 md:flex">
@@ -343,7 +428,7 @@ export default function Home() {
         <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white to-transparent" />
         <div className="relative mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
           <Reveal>
-            <h1 className="max-w-4xl text-4xl font-semibold leading-[1.03] tracking-tight text-white sm:text-5xl md:text-7xl">
+            <h1 className="max-w-4xl text-4xl font-semibold leading-[1.03] text-white sm:text-5xl md:text-7xl">
               Berber ve güzellik salonunuz için 1 günde profesyonel web sitesi.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/80 md:text-xl">
@@ -383,7 +468,7 @@ export default function Home() {
                 </div>
                 <div className="grid gap-4 pt-5 sm:grid-cols-[1fr_0.9fr] sm:items-center">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#5eead4]">
+                    <p className="text-xs font-semibold uppercase text-[#5eead4]">
                       Hayali demo mockup
                     </p>
                     <h2 className="mt-3 text-3xl font-semibold leading-tight">
@@ -449,33 +534,38 @@ export default function Home() {
         </div>
 
         <div className="mx-auto mt-12 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {visibleTemplates.map((template, index) => (
+          {visibleTemplates.map((template, index) => {
+            const theme = cardTheme(template.name);
+
+            return (
             <Reveal delay={index * 0.04} key={template.name}>
-              <article className="flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+              <article
+                className={`flex h-full flex-col overflow-hidden rounded-lg border shadow-sm transition hover:-translate-y-1 hover:shadow-xl ${theme.article}`}
+              >
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <img
                     alt={`${template.name} şablon önizleme mockup alanı`}
                     className="h-full w-full object-cover"
                     src={template.image}
                   />
-                  <div className="absolute left-3 top-3 rounded-md bg-white/90 px-3 py-1 text-xs font-bold text-slate-900">
+                  <div className={`absolute left-3 top-3 rounded-md px-3 py-1 text-xs font-bold ${theme.label}`}>
                     {template.category}
                   </div>
                 </div>
                 <div className="flex flex-1 flex-col p-6">
-                  <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#0f766e]">
+                  <div className={`text-xs font-bold uppercase ${theme.style}`}>
                     {template.style}
                   </div>
-                  <h3 className="mt-3 text-2xl font-semibold text-slate-950">
+                  <h3 className="mt-3 text-2xl font-semibold">
                     {template.name}
                   </h3>
-                  <p className="mt-3 leading-7 text-slate-600">
+                  <p className={`mt-3 leading-7 ${theme.text}`}>
                     {template.description}
                   </p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {template.sections.slice(0, 5).map((section) => (
                       <span
-                        className="rounded-md bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700"
+                        className={`rounded-md px-2.5 py-1 text-xs font-semibold ${theme.chip}`}
                         key={section}
                       >
                         {section}
@@ -484,27 +574,28 @@ export default function Home() {
                   </div>
                   <div className="mt-auto grid gap-3 pt-7 sm:grid-cols-2">
                     <Link
-                      className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-slate-950 px-4 text-sm font-semibold text-white transition hover:bg-[#0f766e]"
-                      href="/sablon/salon"
+                      className={`inline-flex h-11 items-center justify-center gap-2 rounded-md px-4 text-sm font-semibold transition ${theme.button}`}
+                      href={templatePath(template.name)}
                     >
                       Canlı Önizle
                       <ArrowUpRight size={16} />
                     </Link>
                     <a
-                      className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-[#0f766e]/30 px-4 text-sm font-semibold text-[#0f766e] transition hover:bg-teal-50"
+                      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-md border px-4 py-2 text-center text-sm font-semibold transition ${theme.outline}`}
                       href={whatsappUrl(
                         `Merhaba, ${template.name} şablonunu işletmeme uyarlatmak için ücretsiz demo istiyorum.`,
                       )}
                       rel="noreferrer"
                       target="_blank"
                     >
-                      Demo İste
+                      Bu Şablonla Demo İste
                     </a>
                   </div>
                 </div>
               </article>
             </Reveal>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -536,10 +627,10 @@ export default function Home() {
       <section className="bg-slate-50 px-5 py-24">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <Reveal>
-            <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#0f766e]">
+            <p className="text-sm font-bold uppercase text-[#0f766e]">
               Neden web sitesi?
             </p>
-            <h2 className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-slate-950 md:text-5xl">
+            <h2 className="mt-4 max-w-2xl text-3xl font-semibold text-slate-950 md:text-5xl">
               Instagram yetmez. Müşteri sizi Google&apos;da da arıyor.
             </h2>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
@@ -589,7 +680,7 @@ export default function Home() {
                 <h3 className="pr-28 text-2xl font-semibold text-slate-950">
                   {plan.name}
                 </h3>
-                <p className="mt-4 text-3xl font-bold tracking-tight text-[#0f766e]">
+                <p className="mt-4 text-3xl font-bold text-[#0f766e]">
                   {plan.price}
                 </p>
                 <p className="mt-3 leading-7 text-slate-600">{plan.note}</p>
@@ -656,7 +747,7 @@ export default function Home() {
       <section id="iletisim" className="bg-[#0f766e] px-5 py-20 text-white">
         <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-center">
           <Reveal>
-            <h2 className="max-w-3xl text-3xl font-semibold tracking-tight md:text-5xl">
+            <h2 className="max-w-3xl text-3xl font-semibold md:text-5xl">
               İşletmeniz için ücretsiz demo isteyin.
             </h2>
             <p className="mt-4 max-w-2xl text-lg leading-8 text-white/78">

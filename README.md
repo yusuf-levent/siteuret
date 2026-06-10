@@ -5,9 +5,15 @@ Next.js App Router ile hazırlanmış statik export web sitesi.
 ## Sayfalar
 
 - `/` - berber ve güzellik salonlarına özel siteüret tanıtım sayfası
-- `/sablon/salon/` - yeniden kullanılabilir demo güzellik salonu şablonu
+- `/sablon/klasik-berber/` - vintage klasik berber demo şablonu
+- `/sablon/premium-barber-studio/` - premium erkek bakım stüdyosu demo şablonu
+- `/sablon/urban-fade/` - genç ve enerjik urban barber demo şablonu
+- `/sablon/soft-beauty-studio/` - pastel güzellik salonu demo şablonu
+- `/sablon/luxury-beauty-lounge/` - lüks güzellik lounge demo şablonu
+- `/sablon/clean-beauty-clinic/` - temiz klinik/cilt bakım demo şablonu
+- `/sablon/salon/` - eski bağlantılar için soft beauty şablonuna uyumlu rota
 
-Salon demo içeriği kökteki `config/salon.ts` dosyasından yönetilir.
+Şablon demo içerikleri `src/config/templates.ts` dosyasından yönetilir.
 Gerçek marka, telefon, yorum veya adres bilgisi kullanılmaz; yayına alınacak
 işletme için bu alanlar ayrıca düzenlenir.
 
