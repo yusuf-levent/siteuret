@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "siteuret",
+  "compatibility_date": "2026-06-10",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./out"
+  },
+  "build": {
+    "command": "npm run build"
+  }
+}
