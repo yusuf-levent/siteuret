@@ -1,4 +1,4 @@
-import { TemplatePreview } from "@/components/template-preview";
+import { BlushRoomPreview } from "@/templates/blush-room-beauty/preview";
 import { getTemplateBySlug } from "@/config/templates";
 
 export default function SalonPage() {
@@ -8,5 +8,5 @@ export default function SalonPage() {
     return null;
   }
 
-  return <TemplatePreview template={template} />;
+  return <BlushRoomPreview template={template} />;
 }
