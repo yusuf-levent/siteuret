@@ -15,7 +15,7 @@
   "address": "Örnek Mahalle, Makas Sokak No: 12 / İstanbul",
   "mapLabel": "Makas Sokak - Merkez",
   "hours": ["Pazartesi - Cuma: 09.00 - 20.00", "Cumartesi: 09.00 - 19.00", "Pazar: Kapalı"],
-  "highlights": ["Tahta fiyat panosu", "Usta biyografileri", "Sabit randevu CTA"],
+  "highlights": ["Tahta fiyat panosu", "Usta biyografileri", "Sabit randevu butonu"],
   "aboutTitle": "Üç koltuklu, randevusu net, mahalle ruhunu kaybetmeyen bir berber.",
   "aboutText": "Aura Classic Barber hikayeyi öne çıkarır: ustanın eli, kullanılan ürünler, bekleme ritüeli ve fiyat şeffaflığı aynı sayfada güven verir.",
   "services": [

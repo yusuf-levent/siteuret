@@ -5,7 +5,7 @@
   "layout": "velvet-luxury",
   "brand": "Velvet Glow Lounge",
   "tagline": "Burgundy, altın ve concierge hissinde premium salon.",
-  "style": "Luxury beauty, burgundy zemin, altın çizgi, dergi layout",
+  "style": "Lüks salon, burgundy zemin, altın çizgi, dergi tarzı düzen",
   "audience": "Premium güzellik lounge ve özel gün hazırlık salonları",
   "description": "Lüks güzellik salonları için dergi kapağı etkisi, premium paketler ve concierge randevu akışı.",
   "heroTitle": "Premium bakım hizmetini daha ilk kaydırmadan hissettirin.",
@@ -15,7 +15,7 @@
   "address": "Örnek Residence, Lounge Katı No: 18 / İstanbul",
   "mapLabel": "Lounge Katı - Residence",
   "hours": ["Pazartesi - Cuma: 11.00 - 21.00", "Cumartesi: 10.00 - 20.00", "Pazar: Özel randevu"],
-  "highlights": ["Luxury paketler", "Concierge CTA", "Dergi hissi"],
+  "highlights": ["Lüks paketler", "Özel randevu butonu", "Dergi hissi"],
   "aboutTitle": "Paketleri ucuzluk değil, ayrıcalık gibi konumlandırır.",
   "aboutText": "Velvet Glow Lounge, yüksek fiyatlı hizmetlerde ihtiyaç duyulan güveni ekip, yorum, süreç ve net randevu paneliyle destekler.",
   "services": [
@@ -45,8 +45,8 @@
     { "name": "Mina", "role": "Glow uzmanı", "bio": "Cilt hazırlığı, ışık etkisi ve bakım ritüelleri.", "avatar": "MN" }
   ],
   "thumbnail": {
-    "title": "Burgundy luxury lounge",
-    "note": "Premium paket ve concierge hissi.",
+    "title": "Burgundy lüks salon",
+    "note": "Premium paketler ve özel ilgi hissi.",
     "palette": ["#2b1019", "#d5b16b", "#f7ead9"]
   },
   "inspiration": ["Luxury beauty salon örneklerinde görülen dergi tipi büyük başlıklar", "Premium salon sitelerindeki paket kolonları ve yüksek kontrast görsel sunumu"]

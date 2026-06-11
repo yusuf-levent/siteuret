@@ -5,7 +5,7 @@
   "layout": "eco-barber",
   "brand": "Green Comb Studio",
   "tagline": "Bitkisel ürün, sakin mekan, sürdürülebilir bakım.",
-  "style": "Eco bohem, sage yeşili, kağıt dokusu ve organik grid",
+  "style": "Eco bohem, sage yeşili, kağıt dokusu ve organik kart düzeni",
   "audience": "Doğal ürün ve sakin deneyim anlatmak isteyen berberler",
   "description": "Eco-friendly berberler için bitkisel ürün, sürdürülebilir hikaye ve sakin randevu akışı odaklı şablon.",
   "heroTitle": "Doğal bakım ürünlerini ve sakin berber deneyimini öne çıkarın.",
@@ -46,7 +46,7 @@
   ],
   "thumbnail": {
     "title": "Sage, kağıt doku ve bitkisel bakım",
-    "note": "Eco-friendly berber segmenti.",
+    "note": "Doğal ürün odaklı berber tarzı.",
     "palette": ["#e8ead9", "#6f8a62", "#2f3d2f"]
   },
   "inspiration": ["Eco-friendly barbershop aramalarındaki doğal ürün ve sakin mekan anlatımı", "Modern wellness sitelerinde görülen bol boşluk ve organik kart akışı"]

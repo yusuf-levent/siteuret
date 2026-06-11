@@ -9,13 +9,13 @@
   "audience": "Genç kitleye çalışan fade, tattoo ve piercing odaklı berberler",
   "description": "Genç ve yüksek enerjili berberler için tattoo poster estetiği, kampanya şeridi ve sosyal kanıt odaklı şablon.",
   "heroTitle": "Sokak enerjisini, fade işçiliğini ve randevuyu tek ekranda verin.",
-  "heroText": "Kalın tipografi, sticker CTA’lar, kampanya alanı ve sosyal galeriyle genç müşteri için hızlı karar akışı kurar.",
+  "heroText": "Kalın yazı dili, sticker tarzı butonlar, kampanya alanı ve sosyal galeriyle genç müşteri için hızlı karar akışı kurar.",
   "phone": "+90 5XX XXX XX XX",
   "whatsapp": "905XXXXXXXXX",
   "address": "Demo Caddesi, Blok 8 / İstanbul",
   "mapLabel": "Blok 8 - Demo Cadde",
   "hours": ["Pazartesi - Cumartesi: 11.00 - 22.00", "Pazar: 12.00 - 18.00", "Gece randevusu: WhatsApp ile"],
-  "highlights": ["Poster hero", "Kampanya şeridi", "Sosyal galeri"],
+  "highlights": ["Poster tarzı ilk ekran", "Kampanya şeridi", "Sosyal galeri"],
   "aboutTitle": "Fade kültürünü steril olmayan ama güven veren bir dille anlatır.",
   "aboutText": "Ink Fade Lab cesur görünür ama kritik bilgileri saklamaz: fiyat, süre, ekip, hijyen notu ve randevu butonu kullanıcıyı bekletmez.",
   "services": [
@@ -45,7 +45,7 @@
     { "name": "Mira", "role": "Line detail", "bio": "Saç çizgisi desenleri ve piercing hazırlık danışmanlığı.", "avatar": "MI" }
   ],
   "thumbnail": {
-    "title": "Tattoo poster ve neon CTA",
+    "title": "Tattoo poster ve neon butonlar",
     "note": "Genç, agresif, sosyal medya hissinde.",
     "palette": ["#0b0b0f", "#d7ff38", "#ff3d81"]
   },

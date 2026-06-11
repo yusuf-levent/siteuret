@@ -29,7 +29,7 @@ const trustItems = [
   { icon: Smartphone, text: "Mobil uyumlu" },
   { icon: Search, text: "Google görünürlüğü için temel altyapı" },
   { icon: CalendarCheck, text: "Randevu odaklı sayfa akışı" },
-  { icon: ShieldCheck, text: "Güvenlik başlıkları ve statik yayın" },
+  { icon: ShieldCheck, text: "Hızlı açılan, güvenli altyapı" },
 ];
 
 const steps = [
@@ -39,7 +39,7 @@ const steps = [
   },
   {
     title: "Bilgileri gönderin",
-    text: "Marka adı, telefon, hizmetler, fiyatlar, saatler ve görseller business.json mantığıyla değişir.",
+    text: "İşletme adınızı, telefonunuzu, hizmet ve fiyatlarınızı, çalışma saatlerinizi ve birkaç fotoğrafınızı WhatsApp'tan gönderin. Gerisini biz hallederiz.",
   },
   {
     title: "Ücretsiz demo görün",
@@ -47,7 +47,7 @@ const steps = [
   },
   {
     title: "Yayına alın",
-    text: "Onay sonrası statik çıktı Cloudflare Pages veya mevcut hosting akışına hazır olur.",
+    text: "Onay verdiğinizde siteniz kendi alan adınızla yayına alınır. Teknik hiçbir şeyle uğraşmazsınız.",
   },
 ];
 
@@ -55,14 +55,28 @@ const plans = [
   {
     name: "Başlangıç",
     price: "Teklif ile",
-    note: "Tek şablon, temel içerik uyarlama, mobil uyum ve yayın dosyası.",
+    note: "İşletmenizi Google'da görünür yapan, randevu alan temel site.",
     popular: false,
+    features: [
+      "Size uyarlanmış tek şablon",
+      "Mobil uyumlu tasarım",
+      "Hizmet, fiyat ve çalışma saatleri",
+      "WhatsApp randevu butonu",
+      "Kendi alan adınızla yayın",
+    ],
   },
   {
     name: "Salon Pro",
     price: "Teklif ile",
-    note: "Şablon uyarlama, hizmet/fiyat düzeni, randevu CTA, SSS ve bakım desteği.",
+    note: "Başlangıç paketinin tamamı + sürekli güncel kalan tam donanımlı site.",
     popular: true,
+    features: [
+      "Başlangıç paketindeki her şey",
+      "Galeri, ekip ve müşteri yorumları bölümleri",
+      "Sık sorulan sorular alanı",
+      "Aylık içerik ve fiyat güncellemeleri",
+      "Öncelikli WhatsApp desteği",
+    ],
   },
 ];
 
@@ -71,7 +85,7 @@ const includes = [
   "Randevu CTA ve WhatsApp akışı",
   "Hizmet, fiyat ve süre alanları",
   "Galeri, ekip, yorum ve hakkımızda bölümü",
-  "Statik build çıktısı ve temel güvenlik başlıkları",
+  "Hızlı açılış ve güvenli yayın altyapısı",
 ];
 
 const faqs = [
@@ -80,16 +94,16 @@ const faqs = [
     answer: "Sadece berber, erkek bakım stüdyosu, güzellik salonu, nail bar ve cilt bakım/wellness odaklı salonlara göre hazırlandı.",
   },
   {
-    question: "Randevu formu gerçekten çalışıyor mu?",
-    answer: "Sayfa içinde hizmet seçimi, fiyat ve süre gösteren bir panel var. Gönderim WhatsApp akışına bağlanır; veritabanı gerekmez.",
+    question: "Randevu nasıl çalışıyor?",
+    answer: "Müşteriniz sitede hizmeti, fiyatı ve süreyi görür; randevu isteği tek dokunuşla doğrudan WhatsApp'ınıza düşer. Ekstra bir program veya panel öğrenmenize gerek kalmaz.",
   },
   {
-    question: "Fotoğraflar telif riski taşır mı?",
-    answer: "Bu demoda dışarıdan gerçek marka veya kişi fotoğrafı kullanılmadı. Galeriler telif riski düşük CSS tabanlı mockup alanlarıyla tasarlandı.",
+    question: "Fotoğrafları kim sağlıyor?",
+    answer: "Siteniz kendi işletmenizin fotoğraflarıyla hazırlanır; WhatsApp'tan göndermeniz yeterli. Şablon demolarında telifli görsel kullanmıyoruz.",
   },
   {
-    question: "Cloudflare Pages için ne gerekir?",
-    answer: "Build komutu npm run build, çıktı klasörü out. Bu proje statik export mantığıyla hazırlandı.",
+    question: "Hosting ve alan adı için ekstra ücret var mı?",
+    answer: "Siteniz hızlı ve güvenli bir altyapıda yayınlanır, hosting için ek ücret ödemezsiniz. Alan adı (örn. salonunuz.com) yıllık ücretiyle sizin adınıza alınır ve size ait olur.",
   },
 ];
 
@@ -206,10 +220,10 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_.95fr] lg:items-center">
           <Reveal>
             <h1 className="max-w-4xl text-5xl font-semibold leading-tight md:text-7xl">
-              Berber ve güzellik salonları için ayrışan web sitesi şablonları.
+              Berberiniz veya güzellik salonunuz için profesyonel web sitesi.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-              Siteüret artık sekiz farklı salon segmentine göre tasarlanmış canlı önizleme sunuyor: klasik berber, premium grooming, tattoo fade, eco barber, pastel beauty, luxury lounge, klinik minimal ve Y2K nail bar.
+              Tarzınıza uygun 8 şablondan birini seçin; hizmetlerinizi, fiyatlarınızı ve WhatsApp randevu butonunuzu size özel hazırlayalım. Önce ücretsiz demonuzu görün, beğenirseniz devam edin.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryButton href={whatsappUrl(DEMO_MESSAGE)}>
@@ -255,7 +269,7 @@ export default function Home() {
         <Reveal>
           <SectionHeading
             title="8 canlı şablon, 8 ayrı görsel dil."
-            text={`Berber: ${categoryCounts.Berber} şablon. Güzellik Salonu: ${categoryCounts["Güzellik Salonu"]} şablon. Kartlar sadece renk değil; layout, hizmet sunumu, galeri ve randevu akışı da farklı.`}
+            text={`Berber: ${categoryCounts.Berber} şablon. Güzellik Salonu: ${categoryCounts["Güzellik Salonu"]} şablon. Şablonlar sadece renkleriyle değil; sayfa düzeni, hizmet sunumu, galerisi ve randevu akışıyla da birbirinden farklı.`}
           />
         </Reveal>
 
@@ -328,7 +342,7 @@ export default function Home() {
           <Reveal>
             <h2 className="max-w-2xl text-3xl font-semibold text-slate-950 md:text-5xl">Instagram yetmez. Müşteri hizmet, fiyat ve randevuyu tek yerde görmek istiyor.</h2>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-              Araştırmada başarılı salon sitelerinde üç ortak nokta öne çıkıyor: güçlü ilk ekran, randevuya kısa yol ve güven veren sosyal kanıt. Yeni şablonlar bu üç noktayı her segmentte farklı şekilde kullanır.
+              Başarılı salon sitelerinin üç ortak noktası var: güçlü bir ilk izlenim, randevuya giden kısa yol ve güven veren müşteri yorumları. Şablonlarımızın her biri bu üçünü işletmenize göre kurar.
             </p>
           </Reveal>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -357,7 +371,7 @@ export default function Home() {
                 <p className="mt-4 text-3xl font-bold text-[#0f766e]">{plan.price}</p>
                 <p className="mt-3 leading-7 text-slate-600">{plan.note}</p>
                 <div className="mt-7 grid gap-3">
-                  {includes.map((item) => (
+                  {plan.features.map((item) => (
                     <div className="flex items-start gap-3" key={item}>
                       <CheckCircle2 className="mt-0.5 text-[#0f766e]" size={18} />
                       <span className="text-sm font-medium leading-6 text-slate-700">{item}</span>

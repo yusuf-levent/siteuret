@@ -5,7 +5,7 @@
   "layout": "editorial-grooming",
   "brand": "Black Tie Grooming",
   "tagline": "Randevulu, sessiz, premium erkek bakım stüdyosu.",
-  "style": "Monokrom editorial, geniş boşluk, paket odaklı premium yapı",
+  "style": "Siyah-beyaz dergi düzeni, geniş boşluk, paket odaklı premium yapı",
   "audience": "Üst segment erkek bakım stüdyoları",
   "description": "Premium grooming stüdyoları için dergi hissinde siyah-beyaz, sakin ve paket odaklı şablon.",
   "heroTitle": "Bakımı hızlı işlem değil, planlı bir stüdyo deneyimi gibi sunun.",
@@ -15,7 +15,7 @@
   "address": "Örnek Plaza, Studio Katı No: 4 / İstanbul",
   "mapLabel": "Studio Katı - Örnek Plaza",
   "hours": ["Salı - Cuma: 10.00 - 21.00", "Cumartesi: 10.00 - 20.00", "Pazar - Pazartesi: Randevu ile"],
-  "highlights": ["Editorial hero", "Üyelik paketleri", "Sessiz premium akış"],
+  "highlights": ["Dergi tarzı ilk ekran", "Üyelik paketleri", "Sessiz premium akış"],
   "aboutTitle": "Az kişi, yüksek dikkat, randevulu stüdyo düzeni.",
   "aboutText": "Black Tie Grooming müşteriye kalabalık dükkan değil, planlı bir bakım seansı hissi verir. İçerik, fiyat ve süre bilgileri minimal tablolarla hızlı okunur.",
   "services": [
@@ -45,7 +45,7 @@
     { "name": "Aras", "role": "Beard specialist", "bio": "Sakal formu, simetri ve ürün tavsiyesi.", "avatar": "AR" }
   ],
   "thumbnail": {
-    "title": "Monokrom editorial stüdyo",
+    "title": "Siyah-beyaz dergi stüdyosu",
     "note": "Premium grooming ve üyelik paketi odaklı.",
     "palette": ["#090909", "#f6f4ee", "#b8b8b8"]
   },

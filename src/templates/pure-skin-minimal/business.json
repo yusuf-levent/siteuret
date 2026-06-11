@@ -45,7 +45,7 @@
     { "name": "Ela", "role": "Wellness danışmanı", "bio": "Rahatlatıcı bakım akışı ve ürün eşleşmesi.", "avatar": "EA" }
   ],
   "thumbnail": {
-    "title": "White space klinik güven",
+    "title": "Bol boşluklu klinik güven",
     "note": "Hijyen, süreç ve net bilgi odaklı.",
     "palette": ["#ffffff", "#dff7fb", "#2aa7a3"]
   },

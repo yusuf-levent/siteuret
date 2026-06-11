@@ -638,7 +638,7 @@ function Gallery({ template, theme }: { template: TemplateDefinition; theme: The
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <h2 className={`text-4xl font-semibold md:text-6xl ${theme.font}`}>Galeri</h2>
-            <p className={`mt-4 max-w-2xl leading-8 ${theme.muted}`}>Telif riski taşımayan, CSS tabanlı görsel mockup kartlarıyla her şablonun galeri rengi ayrı tutulur.</p>
+            <p className={`mt-4 max-w-2xl leading-8 ${theme.muted}`}>Galeri alanı işletmenizin kendi fotoğraflarıyla doldurulur; her şablonun renk uyumu ayrı tutulur.</p>
           </div>
           <span className={`inline-flex w-fit items-center gap-2 border px-4 py-2 text-sm font-semibold ${theme.radius} ${theme.border}`}>
             <Sparkles size={17} />
