@@ -1,0 +1,53 @@
+{
+  "slug": "aura-classic-barber",
+  "name": "Heritage Barber",
+  "category": "Berber",
+  "layout": "heritage-barber",
+  "brand": "Aura Classic Barber",
+  "tagline": "Usta işi kesim, net fiyat, hızlı randevu.",
+  "style": "Vintage berber, ahşap ve pirinç detaylı klasik düzen",
+  "audience": "Mahalle klasiği hissini premiumlaştırmak isteyen erkek berberleri",
+  "description": "Klasik berberler için fiyat panosu, usta hikayesi, ekip ve galeri odaklı sıcak vintage şablon.",
+  "heroTitle": "Klasik berber kültürünü dijital vitrinde güvenle gösterin.",
+  "heroText": "İlk ekranda fiyat, süre ve randevu net. Ahşap tonlar, pirinç detaylar ve usta hikayesiyle geleneksel berberler için dönüştürücü bir sayfa.",
+  "phone": "+90 5XX XXX XX XX",
+  "whatsapp": "905XXXXXXXXX",
+  "address": "Örnek Mahalle, Makas Sokak No: 12 / İstanbul",
+  "mapLabel": "Makas Sokak - Merkez",
+  "hours": ["Pazartesi - Cuma: 09.00 - 20.00", "Cumartesi: 09.00 - 19.00", "Pazar: Kapalı"],
+  "highlights": ["Tahta fiyat panosu", "Usta biyografileri", "Sabit randevu CTA"],
+  "aboutTitle": "Üç koltuklu, randevusu net, mahalle ruhunu kaybetmeyen bir berber.",
+  "aboutText": "Aura Classic Barber hikayeyi öne çıkarır: ustanın eli, kullanılan ürünler, bekleme ritüeli ve fiyat şeffaflığı aynı sayfada güven verir.",
+  "services": [
+    { "name": "Klasik Saç Kesimi", "text": "Yüz formuna göre kesim, yıkama ve ense düzeltme.", "price": "450 TL", "duration": "35 dk" },
+    { "name": "Sıcak Havlu Sakal", "text": "Sakal formu, sıcak havlu ve bakım yağı finali.", "price": "320 TL", "duration": "25 dk" },
+    { "name": "Damat Hazırlığı", "text": "Saç, sakal, yüz bakımı ve fotoğraf öncesi styling.", "price": "1.350 TL", "duration": "90 dk" }
+  ],
+  "packages": [
+    { "name": "Haftalık Bakım", "price": "690 TL", "details": "Saç kesimi, sakal çizgisi ve ense temizliği." },
+    { "name": "Tam Usta Paketi", "price": "1.550 TL", "details": "Kesim, sakal, sıcak havlu, yüz bakımı ve ürün önerisi." }
+  ],
+  "gallery": [
+    { "title": "Pirinç koltuk", "tone": "walnut" },
+    { "title": "Usta tezgahı", "tone": "brass" },
+    { "title": "Sıcak havlu", "tone": "steam" },
+    { "title": "Jilet çizgisi", "tone": "blade" },
+    { "title": "Bekleme alanı", "tone": "leather" },
+    { "title": "Final styling", "tone": "amber" }
+  ],
+  "reviews": [
+    { "name": "Mert A.", "role": "Düzenli müşteri", "avatar": "MA", "text": "Fiyatı ve süreyi görüp direkt randevu aldım. Sayfa eski usul güveni modern gösteriyor." },
+    { "name": "Can K.", "role": "Damat paketi", "avatar": "CK", "text": "Usta biyografileri ve paket anlatımı karar vermemi kolaylaştırdı." },
+    { "name": "Emir S.", "role": "Sakal bakımı", "avatar": "ES", "text": "WhatsApp butonu her yerde duruyor, arama yapmadan randevu tamamlandı." }
+  ],
+  "team": [
+    { "name": "Selim Usta", "role": "Klasik kesim", "bio": "25 yıllık makas tekniği ve yüz formu danışmanlığı.", "avatar": "SU" },
+    { "name": "Baran", "role": "Sakal tasarım", "bio": "Sıcak havlu, jilet çizgisi ve doğal bakım ürünleri.", "avatar": "BA" }
+  ],
+  "thumbnail": {
+    "title": "Ahşap, pirinç ve fiyat panosu",
+    "note": "Güven veren klasik berber vitrini.",
+    "palette": ["#261711", "#b57a3a", "#f5dfbd"]
+  },
+  "inspiration": ["Barbershop site listelerinde öne çıkan fiyat-panolu klasik sayfalar", "Webflow berber şablonlarındaki güçlü ilk ekran ve hızlı CTA yaklaşımı"]
+}

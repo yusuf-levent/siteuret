@@ -1,0 +1,53 @@
+{
+  "slug": "velvet-glow-lounge",
+  "name": "Velvet Glow Lounge",
+  "category": "Güzellik Salonu",
+  "layout": "velvet-luxury",
+  "brand": "Velvet Glow Lounge",
+  "tagline": "Burgundy, altın ve concierge hissinde premium salon.",
+  "style": "Luxury beauty, burgundy zemin, altın çizgi, dergi layout",
+  "audience": "Premium güzellik lounge ve özel gün hazırlık salonları",
+  "description": "Lüks güzellik salonları için dergi kapağı etkisi, premium paketler ve concierge randevu akışı.",
+  "heroTitle": "Premium bakım hizmetini daha ilk kaydırmadan hissettirin.",
+  "heroText": "Velvet Glow; büyük tipografi, altın çizgiler, seçkin paketler ve yüksek kontrast galeriyle lüks algıyı büyütür.",
+  "phone": "+90 5XX XXX XX XX",
+  "whatsapp": "905XXXXXXXXX",
+  "address": "Örnek Residence, Lounge Katı No: 18 / İstanbul",
+  "mapLabel": "Lounge Katı - Residence",
+  "hours": ["Pazartesi - Cuma: 11.00 - 21.00", "Cumartesi: 10.00 - 20.00", "Pazar: Özel randevu"],
+  "highlights": ["Luxury paketler", "Concierge CTA", "Dergi hissi"],
+  "aboutTitle": "Paketleri ucuzluk değil, ayrıcalık gibi konumlandırır.",
+  "aboutText": "Velvet Glow Lounge, yüksek fiyatlı hizmetlerde ihtiyaç duyulan güveni ekip, yorum, süreç ve net randevu paneliyle destekler.",
+  "services": [
+    { "name": "Luxury Hair Ritual", "text": "Renk, bakım, kesim ve final tasarım.", "price": "3.200 TL", "duration": "120 dk" },
+    { "name": "Glow Skin Ceremony", "text": "Cilt hazırlığı, maske ve rahatlatıcı final.", "price": "2.400 TL", "duration": "90 dk" },
+    { "name": "Event Beauty", "text": "Özel gün saç ve makyaj planlaması.", "price": "4.800 TL", "duration": "150 dk" }
+  ],
+  "packages": [
+    { "name": "Gold", "price": "4.900 TL", "details": "Saç bakım, fön, cilt hazırlığı ve makyaj dokunuşu." },
+    { "name": "Velvet", "price": "8.500 TL", "details": "Kişisel danışmanlık, tam bakım ve özel gün hazırlığı." }
+  ],
+  "gallery": [
+    { "title": "Altın ayna", "tone": "gold" },
+    { "title": "Velvet oda", "tone": "velvet" },
+    { "title": "Glow set", "tone": "champagne" },
+    { "title": "Özel gün", "tone": "ruby" },
+    { "title": "Lounge ışığı", "tone": "wine" },
+    { "title": "Concierge masa", "tone": "bronze" }
+  ],
+  "reviews": [
+    { "name": "Defne R.", "role": "Velvet paket", "avatar": "DR", "text": "Paket sunumu premium hissi veriyor, fiyat yüksek olsa da karşılığı anlatılıyor." },
+    { "name": "İrem N.", "role": "Event beauty", "avatar": "İN", "text": "Dergi gibi ama randevu akışı çok pratik." },
+    { "name": "Naz K.", "role": "Glow ceremony", "avatar": "NK", "text": "Yorum ve ekip alanları güveni artırıyor." }
+  ],
+  "team": [
+    { "name": "Elara", "role": "Salon direktörü", "bio": "Özel gün planlama ve premium servis standardı.", "avatar": "EL" },
+    { "name": "Mina", "role": "Glow uzmanı", "bio": "Cilt hazırlığı, ışık etkisi ve bakım ritüelleri.", "avatar": "MN" }
+  ],
+  "thumbnail": {
+    "title": "Burgundy luxury lounge",
+    "note": "Premium paket ve concierge hissi.",
+    "palette": ["#2b1019", "#d5b16b", "#f7ead9"]
+  },
+  "inspiration": ["Luxury beauty salon örneklerinde görülen dergi tipi büyük başlıklar", "Premium salon sitelerindeki paket kolonları ve yüksek kontrast görsel sunumu"]
+}

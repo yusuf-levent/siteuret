@@ -1,0 +1,53 @@
+{
+  "slug": "green-comb-studio",
+  "name": "Green Comb Studio",
+  "category": "Berber",
+  "layout": "eco-barber",
+  "brand": "Green Comb Studio",
+  "tagline": "Bitkisel ürün, sakin mekan, sürdürülebilir bakım.",
+  "style": "Eco bohem, sage yeşili, kağıt dokusu ve organik grid",
+  "audience": "Doğal ürün ve sakin deneyim anlatmak isteyen berberler",
+  "description": "Eco-friendly berberler için bitkisel ürün, sürdürülebilir hikaye ve sakin randevu akışı odaklı şablon.",
+  "heroTitle": "Doğal bakım ürünlerini ve sakin berber deneyimini öne çıkarın.",
+  "heroText": "Sage yeşili, kağıt dokusu, bitki detayları ve hikaye odaklı bölümlerle bohem ama güven veren bir dijital vitrin.",
+  "phone": "+90 5XX XXX XX XX",
+  "whatsapp": "905XXXXXXXXX",
+  "address": "Yeşil Sokak, Studio No: 3 / İstanbul",
+  "mapLabel": "Yeşil Sokak - Studio",
+  "hours": ["Pazartesi - Cuma: 10.00 - 20.00", "Cumartesi: 10.00 - 18.00", "Pazar: Kapalı"],
+  "highlights": ["Bitkisel ürün vurgusu", "Sakin randevu akışı", "Sürdürülebilir hikaye"],
+  "aboutTitle": "Bakım, ürün ve mekan hikayesini aynı sakin çizgide toplar.",
+  "aboutText": "Green Comb Studio kullanıcıya sadece kesim değil, daha doğal ürünlerle sakin bir deneyim satmak isteyen işletmeler için tasarlandı.",
+  "services": [
+    { "name": "Botanical Cut", "text": "Doğal şampuan, kesim ve düşük ısı styling.", "price": "620 TL", "duration": "50 dk" },
+    { "name": "Herbal Beard Care", "text": "Bitkisel yağ, sakal formu ve cilt yatıştırma.", "price": "480 TL", "duration": "35 dk" },
+    { "name": "Quiet Grooming", "text": "Düşük yoğunluklu saatlerde tam bakım seansı.", "price": "1.250 TL", "duration": "80 dk" }
+  ],
+  "packages": [
+    { "name": "Green Routine", "price": "1.100 TL", "details": "Kesim, sakal bakımı ve bitkisel ürün önerisi." },
+    { "name": "Slow Morning", "price": "1.850 TL", "details": "Uzun seans, cilt hazırlığı, bakım ve sessiz saat randevusu." }
+  ],
+  "gallery": [
+    { "title": "Sage ayna", "tone": "sage" },
+    { "title": "Bitkisel yağ", "tone": "olive" },
+    { "title": "Ahşap raf", "tone": "wood" },
+    { "title": "Doğal havlu", "tone": "linen" },
+    { "title": "Sessiz koltuk", "tone": "moss" },
+    { "title": "Gün ışığı", "tone": "sun" }
+  ],
+  "reviews": [
+    { "name": "Onur P.", "role": "Botanical cut", "avatar": "OP", "text": "Doğal ürün anlatımı ve sakin tasarım tam işletmenin karakterini veriyor." },
+    { "name": "Murat E.", "role": "Sakal bakımı", "avatar": "ME", "text": "Klasik berber gibi değil, daha dingin ve modern duruyor." },
+    { "name": "Ali V.", "role": "Green routine", "avatar": "AV", "text": "Paketler net, içerikler sade, randevu paneli gereksiz uzamıyor." }
+  ],
+  "team": [
+    { "name": "Efe", "role": "Doğal bakım", "bio": "Bitkisel ürün seçimi ve hassas cilt danışmanlığı.", "avatar": "EF" },
+    { "name": "Levent", "role": "Kesim", "bio": "Doğal dokuyu koruyan makas ve form çalışması.", "avatar": "LE" }
+  ],
+  "thumbnail": {
+    "title": "Sage, kağıt doku ve bitkisel bakım",
+    "note": "Eco-friendly berber segmenti.",
+    "palette": ["#e8ead9", "#6f8a62", "#2f3d2f"]
+  },
+  "inspiration": ["Eco-friendly barbershop aramalarındaki doğal ürün ve sakin mekan anlatımı", "Modern wellness sitelerinde görülen bol boşluk ve organik kart akışı"]
+}

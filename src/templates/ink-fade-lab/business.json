@@ -1,0 +1,53 @@
+{
+  "slug": "ink-fade-lab",
+  "name": "Ink Fade Lab",
+  "category": "Berber",
+  "layout": "tattoo-fade",
+  "brand": "Ink Fade Lab",
+  "tagline": "Fade, çizgi, piercing ruhu ve poster gibi bir vitrin.",
+  "style": "Tattoo barber, siyah mürekkep, neon lime ve poster kolaj",
+  "audience": "Genç kitleye çalışan fade, tattoo ve piercing odaklı berberler",
+  "description": "Genç ve yüksek enerjili berberler için tattoo poster estetiği, kampanya şeridi ve sosyal kanıt odaklı şablon.",
+  "heroTitle": "Sokak enerjisini, fade işçiliğini ve randevuyu tek ekranda verin.",
+  "heroText": "Kalın tipografi, sticker CTA’lar, kampanya alanı ve sosyal galeriyle genç müşteri için hızlı karar akışı kurar.",
+  "phone": "+90 5XX XXX XX XX",
+  "whatsapp": "905XXXXXXXXX",
+  "address": "Demo Caddesi, Blok 8 / İstanbul",
+  "mapLabel": "Blok 8 - Demo Cadde",
+  "hours": ["Pazartesi - Cumartesi: 11.00 - 22.00", "Pazar: 12.00 - 18.00", "Gece randevusu: WhatsApp ile"],
+  "highlights": ["Poster hero", "Kampanya şeridi", "Sosyal galeri"],
+  "aboutTitle": "Fade kültürünü steril olmayan ama güven veren bir dille anlatır.",
+  "aboutText": "Ink Fade Lab cesur görünür ama kritik bilgileri saklamaz: fiyat, süre, ekip, hijyen notu ve randevu butonu kullanıcıyı bekletmez.",
+  "services": [
+    { "name": "Skin Fade", "text": "Temiz geçiş, net çizgi ve mat styling.", "price": "550 TL", "duration": "45 dk" },
+    { "name": "Tattoo Line Detail", "text": "Saç çizgisi, küçük desen ve kişisel tasarım.", "price": "780 TL", "duration": "60 dk" },
+    { "name": "Piercing Prep", "text": "Alan hazırlığı, danışmanlık ve bakım notu.", "price": "650 TL", "duration": "40 dk" }
+  ],
+  "packages": [
+    { "name": "Fresh Drop", "price": "850 TL", "details": "Fade, sakal çizgisi ve hızlı styling." },
+    { "name": "Ink Session", "price": "1.650 TL", "details": "Fade, çizgi tasarım, bakım ve fotoğraf köşesi." }
+  ],
+  "gallery": [
+    { "title": "Fade poster", "tone": "acid" },
+    { "title": "Mürekkep detay", "tone": "ink" },
+    { "title": "Neon ayna", "tone": "neon" },
+    { "title": "Çizgi tasarım", "tone": "hotline" },
+    { "title": "Hijyen seti", "tone": "steel" },
+    { "title": "Sosyal kare", "tone": "purple" }
+  ],
+  "reviews": [
+    { "name": "Arda Y.", "role": "Fade müşterisi", "avatar": "AY", "text": "Tarzı genç, ama fiyat ve süre bilgisi çok net. Randevu formu hızlı." },
+    { "name": "Kerem B.", "role": "Çizgi tasarım", "avatar": "KB", "text": "Kampanya alanı ve galeri Instagram gibi hissettiriyor." },
+    { "name": "Deniz R.", "role": "Piercing hazırlık", "avatar": "DR", "text": "Hijyen notlarının görünür olması güven verdi." }
+  ],
+  "team": [
+    { "name": "Rüzgar", "role": "Fade artist", "bio": "Skin fade, taper ve keskin geçiş teknikleri.", "avatar": "RZ" },
+    { "name": "Mira", "role": "Line detail", "bio": "Saç çizgisi desenleri ve piercing hazırlık danışmanlığı.", "avatar": "MI" }
+  ],
+  "thumbnail": {
+    "title": "Tattoo poster ve neon CTA",
+    "note": "Genç, agresif, sosyal medya hissinde.",
+    "palette": ["#0b0b0f", "#d7ff38", "#ff3d81"]
+  },
+  "inspiration": ["Tattoo barber aramalarında öne çıkan poster kolaj ve yüksek kontrast estetiği", "Genç kitle salonlarında kullanılan kampanya ve sosyal grid yapıları"]
+}

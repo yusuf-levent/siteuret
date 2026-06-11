@@ -2,7 +2,7 @@ import { TemplatePreview } from "@/components/template-preview";
 import { getTemplateBySlug } from "@/config/templates";
 
 export default function SalonPage() {
-  const template = getTemplateBySlug("soft-beauty-studio");
+  const template = getTemplateBySlug("blush-room-beauty");
 
   if (!template) {
     return null;

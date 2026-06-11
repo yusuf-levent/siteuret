@@ -1,0 +1,53 @@
+{
+  "slug": "chrome-nail-bar",
+  "name": "Chrome Nail Bar",
+  "category": "Güzellik Salonu",
+  "layout": "y2k-beauty",
+  "brand": "Chrome Nail Bar",
+  "tagline": "Gen-Z nail art, chrome efekt ve sosyal kanıt.",
+  "style": "Y2K beauty, chrome pembe, sticker CTA, maksimalist grid",
+  "audience": "Nail art, kaş-kirpik ve Gen-Z beauty bar işletmeleri",
+  "description": "Genç güzellik salonları için Y2K chrome estetiği, sosyal medya ritmi ve hızlı randevu odaklı şablon.",
+  "heroTitle": "Nail art ve beauty bar hizmetlerini sosyal medya enerjisiyle satın.",
+  "heroText": "Chrome Nail Bar; parlak yüzeyler, sticker yorumlar, trend galeri ve kısa randevu paneliyle genç kitleyi hızlı aksiyona taşır.",
+  "phone": "+90 5XX XXX XX XX",
+  "whatsapp": "905XXXXXXXXX",
+  "address": "Trend Sokak No: 22 / İstanbul",
+  "mapLabel": "Trend Sokak - Beauty Bar",
+  "hours": ["Pazartesi - Cumartesi: 11.00 - 21.00", "Pazar: 12.00 - 18.00", "Gece nail art: WhatsApp ile"],
+  "highlights": ["Chrome hero", "Trend galeri", "Sticker yorumlar"],
+  "aboutTitle": "Randevu aldıran enerjik salon dili: hızlı, parlak ve paylaşılabilir.",
+  "aboutText": "Chrome Nail Bar ciddi bilgileri saklamadan genç görünür. Fiyatlar, süreler, ekip ve trend işler eğlenceli ama okunur bir sistemde sunulur.",
+  "services": [
+    { "name": "Chrome Manikür", "text": "Metal efekt, güçlendirme ve final parlaklık.", "price": "950 TL", "duration": "70 dk" },
+    { "name": "Nail Art Set", "text": "Kişisel desen, sticker ve renk danışmanlığı.", "price": "1.350 TL", "duration": "100 dk" },
+    { "name": "Lash Pop", "text": "Doğal hacim, lift etkisi ve bakım notu.", "price": "850 TL", "duration": "60 dk" }
+  ],
+  "packages": [
+    { "name": "Trend Drop", "price": "1.600 TL", "details": "Chrome manikür, nail art dokunuşu ve hızlı çekim köşesi." },
+    { "name": "Full Pop", "price": "2.700 TL", "details": "Nail art, lash pop ve sosyal medya mini çekimi." }
+  ],
+  "gallery": [
+    { "title": "Chrome tırnak", "tone": "chrome" },
+    { "title": "Pembe ayna", "tone": "hotpink" },
+    { "title": "Sticker set", "tone": "sticker" },
+    { "title": "Lash pop", "tone": "violet" },
+    { "title": "Trend masa", "tone": "silver" },
+    { "title": "Selfie ışığı", "tone": "flash" }
+  ],
+  "reviews": [
+    { "name": "Yağmur S.", "role": "Nail art", "avatar": "YS", "text": "Genç ve parlak duruyor ama randevu bilgisi kaybolmuyor." },
+    { "name": "Dila P.", "role": "Chrome manikür", "avatar": "DP", "text": "Galeri trendleri satıyor, form ise işi hemen randevuya çeviriyor." },
+    { "name": "Cemre T.", "role": "Lash pop", "avatar": "CT", "text": "Yorum sticker’ları sayfayı sosyal medya gibi canlı gösteriyor." }
+  ],
+  "team": [
+    { "name": "Nora", "role": "Nail artist", "bio": "Chrome efekt, desen ve renk trendleri.", "avatar": "NO" },
+    { "name": "Lal", "role": "Lash stylist", "bio": "Doğal hacim, lift ve bakım notları.", "avatar": "LA" }
+  ],
+  "thumbnail": {
+    "title": "Chrome pink Gen-Z beauty",
+    "note": "Nail art ve sosyal medya ritmi.",
+    "palette": ["#fff0fb", "#ff4fb8", "#7c3cff"]
+  },
+  "inspiration": ["Y2K beauty ve Gen-Z salon sitelerinde görülen chrome, sticker ve maksimalist grid trendi", "Salon randevu örneklerinde kullanılan hızlı hizmet seçimi ve sosyal kanıt vurgusu"]
+}

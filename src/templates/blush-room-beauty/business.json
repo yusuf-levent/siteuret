@@ -1,0 +1,53 @@
+{
+  "slug": "blush-room-beauty",
+  "name": "Blush Room Beauty",
+  "category": "Güzellik Salonu",
+  "layout": "pastel-beauty",
+  "brand": "Blush Room Beauty",
+  "tagline": "Yumuşak tonlar, net bakım menüsü, kolay randevu.",
+  "style": "Soft pastel, yuvarlak formlar, nazik salon dili",
+  "audience": "Saç, makyaj, kaş-kirpik ve günlük bakım salonları",
+  "description": "Soft pastel güzellik salonları için sıcak, güvenli ve mobilde hızlı randevu alan şablon.",
+  "heroTitle": "Güzellik hizmetlerini sakin, zarif ve kolay seçilir gösterin.",
+  "heroText": "Blush Room; hizmet kartları, ekip biyografileri, yorumlar ve yumuşak galeriyle salonu ilk ekranda davetkar gösterir.",
+  "phone": "+90 5XX XXX XX XX",
+  "whatsapp": "905XXXXXXXXX",
+  "address": "Pembe Sokak No: 7 / İstanbul",
+  "mapLabel": "Pembe Sokak - Studio",
+  "hours": ["Pazartesi - Cuma: 10.00 - 20.00", "Cumartesi: 10.00 - 19.00", "Pazar: Randevu ile"],
+  "highlights": ["Pastel servis kartları", "Slide-in randevu", "Yumuşak yorum alanı"],
+  "aboutTitle": "Randevu almadan önce salondaki hissi yumuşak biçimde anlatır.",
+  "aboutText": "Blush Room Beauty, güzellik salonlarının hizmetini agresif kampanya yerine sakin bakım deneyimi olarak konumlandırır.",
+  "services": [
+    { "name": "Saç Tasarımı", "text": "Kesim, fön ve doğal görünüm odaklı şekillendirme.", "price": "750 TL", "duration": "60 dk" },
+    { "name": "Makyaj", "text": "Günlük, davet ve özel gün makyajı.", "price": "1.200 TL", "duration": "75 dk" },
+    { "name": "Kaş & Kirpik", "text": "Yüz formuna uygun doğal uygulama.", "price": "650 TL", "duration": "45 dk" }
+  ],
+  "packages": [
+    { "name": "Günlük Bakım", "price": "1.250 TL", "details": "Fön, bakım maskesi ve hafif makyaj dokunuşu." },
+    { "name": "Özel Gün", "price": "3.400 TL", "details": "Saç tasarımı, makyaj ve prova planı." }
+  ],
+  "gallery": [
+    { "title": "Blush bakım", "tone": "blush" },
+    { "title": "Lavanta makyaj", "tone": "lavender" },
+    { "title": "Saç ritüeli", "tone": "rose" },
+    { "title": "Kirpik köşesi", "tone": "pearl" },
+    { "title": "Ürün rafı", "tone": "cream" },
+    { "title": "Salon ışığı", "tone": "pink" }
+  ],
+  "reviews": [
+    { "name": "Selin E.", "role": "Özel gün", "avatar": "SE", "text": "Şablon salonun sakin ve özenli havasını çok iyi taşıyor." },
+    { "name": "Aylin D.", "role": "Kaş-kirpik", "avatar": "AD", "text": "Randevu panelinde hizmet, süre ve fiyatı birlikte görmek güven verdi." },
+    { "name": "Ece N.", "role": "Saç tasarımı", "avatar": "EN", "text": "Galeri ve yorumlar sayfayı gerçek bir salon gibi hissettiriyor." }
+  ],
+  "team": [
+    { "name": "Lina", "role": "Saç tasarımı", "bio": "Doğal form, fön ve özel gün hazırlığı.", "avatar": "LI" },
+    { "name": "Duru", "role": "Makyaj artisti", "bio": "Cilt tonuna uygun yumuşak makyaj dili.", "avatar": "DU" }
+  ],
+  "thumbnail": {
+    "title": "Blush pastel salon",
+    "note": "Sıcak, kadın odaklı, yumuşak dönüşüm akışı.",
+    "palette": ["#fff5f7", "#d98aa8", "#8f6073"]
+  },
+  "inspiration": ["Beauty salon inspiration aramalarında öne çıkan pastel, büyük görsel ve yorum düzenleri", "Salon booking örneklerindeki tek tık randevu CTA pratikleri"]
+}

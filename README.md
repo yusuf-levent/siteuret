@@ -4,18 +4,31 @@ Next.js App Router ile hazırlanmış statik export web sitesi.
 
 ## Sayfalar
 
-- `/` - berber ve güzellik salonlarına özel siteüret tanıtım sayfası
-- `/sablon/klasik-berber/` - vintage klasik berber demo şablonu
-- `/sablon/premium-barber-studio/` - premium erkek bakım stüdyosu demo şablonu
-- `/sablon/urban-fade/` - genç ve enerjik urban barber demo şablonu
-- `/sablon/soft-beauty-studio/` - pastel güzellik salonu demo şablonu
-- `/sablon/luxury-beauty-lounge/` - lüks güzellik lounge demo şablonu
-- `/sablon/clean-beauty-clinic/` - temiz klinik/cilt bakım demo şablonu
-- `/sablon/salon/` - eski bağlantılar için soft beauty şablonuna uyumlu rota
+- `/` - berber ve güzellik salonlarına özel siteüret tanıtım ve şablon seçme sayfası
+- `/sablon/aura-classic-barber/` - vintage klasik berber şablonu
+- `/sablon/black-tie-grooming/` - premium/editorial grooming stüdyosu şablonu
+- `/sablon/ink-fade-lab/` - tattoo, piercing ve fade odaklı genç berber şablonu
+- `/sablon/green-comb-studio/` - eco/bohem doğal bakım berber şablonu
+- `/sablon/blush-room-beauty/` - soft pastel güzellik salonu şablonu
+- `/sablon/velvet-glow-lounge/` - luxury beauty lounge şablonu
+- `/sablon/pure-skin-minimal/` - clinical/minimal cilt bakım şablonu
+- `/sablon/chrome-nail-bar/` - Y2K/Gen-Z nail ve beauty bar şablonu
+- `/sablon/salon/` - eski bağlantılar için pastel beauty uyumlu rota
 
-Şablon demo içerikleri `src/config/templates.ts` dosyasından yönetilir.
-Gerçek marka, telefon, yorum veya adres bilgisi kullanılmaz; yayına alınacak
-işletme için bu alanlar ayrıca düzenlenir.
+## Şablon Ayarları
+
+Her şablon ayrı klasörde tutulur:
+
+```text
+src/templates/{slug}/business.json
+```
+
+`business.json` içinde marka adı, telefon, WhatsApp, adres, çalışma saatleri,
+hizmetler, fiyatlar, süreler, ekip, yorumlar ve galeri alanları değiştirilebilir.
+
+Demo içerikler hayali marka ve müşteri yorumları kullanır. Galeri alanları gerçek
+marka veya kişiye ait fotoğraf kullanmadan CSS tabanlı telifsiz mockup olarak
+render edilir.
 
 ## Güvenlik
 

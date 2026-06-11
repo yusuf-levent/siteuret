@@ -1,0 +1,53 @@
+{
+  "slug": "pure-skin-minimal",
+  "name": "Pure Skin Minimal",
+  "category": "Güzellik Salonu",
+  "layout": "clinical-minimal",
+  "brand": "Pure Skin Minimal",
+  "tagline": "Temiz süreç, net bakım planı, klinik güven.",
+  "style": "Minimal wellness clinic, beyaz alan, buz mavisi ve checklist",
+  "audience": "Cilt bakımı, epilasyon ve wellness odaklı güzellik merkezleri",
+  "description": "Klinik minimal güzellik merkezleri için hijyen, süreç ve randevu netliği odaklı sade şablon.",
+  "heroTitle": "Cilt bakımında kullanıcı önce güven, sonra randevu arar.",
+  "heroText": "Pure Skin Minimal; steril değil sıcak, sade değil boş olmayan bir klinik akış kurar. Her hizmette süre, fiyat ve süreç açık görünür.",
+  "phone": "+90 5XX XXX XX XX",
+  "whatsapp": "905XXXXXXXXX",
+  "address": "Sağlık Plaza, Kat 3 / İstanbul",
+  "mapLabel": "Sağlık Plaza - Kat 3",
+  "hours": ["Pazartesi - Cuma: 09.30 - 19.30", "Cumartesi: 10.00 - 18.00", "Pazar: Kapalı"],
+  "highlights": ["Hijyen bandı", "Süreç adımları", "Minimal randevu formu"],
+  "aboutTitle": "Net bilgiyle güven kurar, gereksiz süslemeyi azaltır.",
+  "aboutText": "Pure Skin Minimal, bakım merkezlerinin açıklaması zor hizmetlerini checklist, süreç kartı ve anlaşılır paketlerle sadeleştirir.",
+  "services": [
+    { "name": "Cilt Analizi", "text": "İhtiyaca göre bakım planı ve ürün önerisi.", "price": "Ücretsiz", "duration": "20 dk" },
+    { "name": "Hydra Bakım", "text": "Temizleme, nemlendirme ve parlaklık desteği.", "price": "1.400 TL", "duration": "70 dk" },
+    { "name": "Leke Bakımı", "text": "Düzenli seans planı ve kontrollü bakım süreci.", "price": "1.900 TL", "duration": "80 dk" }
+  ],
+  "packages": [
+    { "name": "İlk Görüşme", "price": "0 TL", "details": "İhtiyaç analizi, süreç açıklaması ve randevu planı." },
+    { "name": "Bakım Planı", "price": "4.800 TL", "details": "3 seans bakım, takip notu ve kontrollü ilerleme." }
+  ],
+  "gallery": [
+    { "title": "Temiz oda", "tone": "ice" },
+    { "title": "Cilt analizi", "tone": "blue" },
+    { "title": "Hijyen seti", "tone": "white" },
+    { "title": "Bakım ışığı", "tone": "mint" },
+    { "title": "Ürün düzeni", "tone": "aqua" },
+    { "title": "Takip planı", "tone": "paper" }
+  ],
+  "reviews": [
+    { "name": "Buse L.", "role": "Hydra bakım", "avatar": "BL", "text": "Süreç adımlarını okuyunca ne olacağını net anladım." },
+    { "name": "Nehir K.", "role": "Cilt analizi", "avatar": "NK", "text": "Klinik gibi güvenli ama soğuk durmuyor." },
+    { "name": "Melis A.", "role": "Leke bakımı", "avatar": "MA", "text": "Randevu formunda ücretsiz ön görüşmenin görünmesi dönüşümü artırır." }
+  ],
+  "team": [
+    { "name": "Berrin", "role": "Cilt uzmanı", "bio": "Analiz, bakım planı ve takip notları.", "avatar": "BE" },
+    { "name": "Ela", "role": "Wellness danışmanı", "bio": "Rahatlatıcı bakım akışı ve ürün eşleşmesi.", "avatar": "EA" }
+  ],
+  "thumbnail": {
+    "title": "White space klinik güven",
+    "note": "Hijyen, süreç ve net bilgi odaklı.",
+    "palette": ["#ffffff", "#dff7fb", "#2aa7a3"]
+  },
+  "inspiration": ["Minimal wellness clinic web design örneklerindeki beyaz alan ve süreç açıklaması", "Cilt bakımı sitelerinde güven artıran hijyen, uzman ve yorum blokları"]
+}

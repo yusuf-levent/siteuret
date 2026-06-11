@@ -1,90 +1,692 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import {
   ArrowUpRight,
+  CalendarCheck,
   CheckCircle2,
   Clock,
+  Leaf,
   MapPin,
   MessageCircle,
+  Moon,
   Phone,
   Quote,
+  Scissors,
   ShieldCheck,
   Sparkles,
+  Star,
+  X,
+  Zap,
 } from "lucide-react";
 import Link from "next/link";
+import { useMemo, useState } from "react";
 import type { TemplateDefinition } from "@/config/templates";
 import { templateWhatsAppUrl } from "@/config/templates";
+
+type Tone = "light" | "dark";
+
+type Theme = {
+  shell: string;
+  header: string;
+  text: string;
+  muted: string;
+  accent: string;
+  accentText: string;
+  surface: string;
+  border: string;
+  button: string;
+  outline: string;
+  radius: string;
+  font: string;
+};
+
+const themes: Record<TemplateDefinition["layout"], Theme> = {
+  "heritage-barber": {
+    shell: "bg-[#261711] text-[#f6dfbd]",
+    header: "border-[#bd8344]/30 bg-[#261711]/90",
+    text: "text-[#f6dfbd]",
+    muted: "text-[#f6dfbd]/72",
+    accent: "#bd8344",
+    accentText: "text-[#bd8344]",
+    surface: "bg-[#352117]",
+    border: "border-[#bd8344]/30",
+    button: "bg-[#bd8344] text-[#24130d] hover:bg-[#d39b55]",
+    outline: "border-[#bd8344]/45 text-[#f6dfbd] hover:bg-[#bd8344]/12",
+    radius: "rounded-md",
+    font: "font-serif",
+  },
+  "editorial-grooming": {
+    shell: "bg-[#f6f4ee] text-black",
+    header: "border-black/10 bg-[#f6f4ee]/90",
+    text: "text-black",
+    muted: "text-black/62",
+    accent: "#111111",
+    accentText: "text-black",
+    surface: "bg-white",
+    border: "border-black/14",
+    button: "bg-black text-white hover:bg-[#2a2a2a]",
+    outline: "border-black/25 text-black hover:bg-white",
+    radius: "rounded-none",
+    font: "font-sans",
+  },
+  "tattoo-fade": {
+    shell: "bg-[#09090d] text-white",
+    header: "border-[#d7ff38]/30 bg-[#09090d]/90",
+    text: "text-white",
+    muted: "text-white/70",
+    accent: "#d7ff38",
+    accentText: "text-[#d7ff38]",
+    surface: "bg-[#15151c]",
+    border: "border-[#d7ff38]/35",
+    button: "bg-[#ff3d81] text-white hover:bg-[#e12e70]",
+    outline: "border-[#d7ff38]/55 text-[#d7ff38] hover:bg-[#d7ff38]/12",
+    radius: "rounded-sm",
+    font: "font-sans",
+  },
+  "eco-barber": {
+    shell: "bg-[#e8ead9] text-[#273425]",
+    header: "border-[#6f8a62]/25 bg-[#e8ead9]/92",
+    text: "text-[#273425]",
+    muted: "text-[#465943]",
+    accent: "#6f8a62",
+    accentText: "text-[#4f6f47]",
+    surface: "bg-[#f8f4e8]",
+    border: "border-[#6f8a62]/25",
+    button: "bg-[#4f6f47] text-white hover:bg-[#3f5f38]",
+    outline: "border-[#4f6f47]/35 text-[#33452f] hover:bg-[#f8f4e8]",
+    radius: "rounded-2xl",
+    font: "font-serif",
+  },
+  "pastel-beauty": {
+    shell: "bg-[#fff5f7] text-[#3c2b32]",
+    header: "border-[#e8c8d3]/60 bg-[#fff5f7]/92",
+    text: "text-[#3c2b32]",
+    muted: "text-[#755763]",
+    accent: "#d98aa8",
+    accentText: "text-[#bd6f90]",
+    surface: "bg-white",
+    border: "border-[#efd3dc]",
+    button: "bg-[#d98aa8] text-white hover:bg-[#c67595]",
+    outline: "border-[#d98aa8]/35 text-[#9b6077] hover:bg-white",
+    radius: "rounded-[1.6rem]",
+    font: "font-serif",
+  },
+  "velvet-luxury": {
+    shell: "bg-[#2b1019] text-[#f7ead9]",
+    header: "border-[#d5b16b]/30 bg-[#2b1019]/90",
+    text: "text-[#f7ead9]",
+    muted: "text-[#f7ead9]/72",
+    accent: "#d5b16b",
+    accentText: "text-[#d5b16b]",
+    surface: "bg-[#421927]",
+    border: "border-[#d5b16b]/35",
+    button: "bg-[#d5b16b] text-[#2b1019] hover:bg-[#c39b51]",
+    outline: "border-[#d5b16b]/45 text-[#f7ead9] hover:bg-[#d5b16b]/12",
+    radius: "rounded-lg",
+    font: "font-serif",
+  },
+  "clinical-minimal": {
+    shell: "bg-white text-[#102033]",
+    header: "border-slate-200 bg-white/92",
+    text: "text-[#102033]",
+    muted: "text-slate-600",
+    accent: "#2aa7a3",
+    accentText: "text-[#238b88]",
+    surface: "bg-[#eef8fb]",
+    border: "border-slate-200",
+    button: "bg-[#2aa7a3] text-white hover:bg-[#238b88]",
+    outline: "border-[#2aa7a3]/35 text-[#238b88] hover:bg-[#eef8fb]",
+    radius: "rounded-lg",
+    font: "font-sans",
+  },
+  "y2k-beauty": {
+    shell: "bg-[#fff0fb] text-[#251232]",
+    header: "border-[#ff4fb8]/25 bg-[#fff0fb]/90",
+    text: "text-[#251232]",
+    muted: "text-[#66406f]",
+    accent: "#ff4fb8",
+    accentText: "text-[#d31686]",
+    surface: "bg-white",
+    border: "border-[#ff4fb8]/30",
+    button: "bg-[#ff4fb8] text-white hover:bg-[#e2389e]",
+    outline: "border-[#7c3cff]/35 text-[#6b2ee5] hover:bg-white",
+    radius: "rounded-[1.25rem]",
+    font: "font-sans",
+  },
+};
 
 function phoneHref(phone: string) {
   return `tel:${phone.replaceAll(" ", "")}`;
 }
 
-function Cta({
-  template,
-  className = "",
-  dark = false,
-}: {
-  template: TemplateDefinition;
-  className?: string;
-  dark?: boolean;
-}) {
+function GalleryMock({ item, index, theme }: { item: { title: string; tone: string }; index: number; theme: Theme }) {
+  const gradients: Record<string, string> = {
+    walnut: "linear-gradient(135deg,#1e120c,#7b4a24,#d6a15a)",
+    brass: "linear-gradient(135deg,#2b1a10,#b57a3a,#f5dfbd)",
+    steam: "linear-gradient(135deg,#423021,#e8d3b3,#ffffff)",
+    blade: "linear-gradient(135deg,#101010,#777,#e9e9e9)",
+    leather: "linear-gradient(135deg,#2c1710,#63341f,#aa7044)",
+    amber: "linear-gradient(135deg,#27130b,#b26e2f,#ffc66d)",
+    mono: "linear-gradient(135deg,#070707,#777,#f8f8f8)",
+    charcoal: "linear-gradient(135deg,#050505,#1f1f1f,#707070)",
+    ivory: "linear-gradient(135deg,#111,#eee,#fff)",
+    stone: "linear-gradient(135deg,#e8e4dc,#999,#252525)",
+    graphite: "linear-gradient(135deg,#111,#444,#aaa)",
+    silver: "linear-gradient(135deg,#202020,#d8d8d8,#ffffff)",
+    acid: "linear-gradient(135deg,#07070a,#d7ff38,#ff3d81)",
+    ink: "radial-gradient(circle at 35% 30%,#d7ff38,transparent 18%),linear-gradient(135deg,#08080c,#171721,#000)",
+    neon: "linear-gradient(135deg,#0b0b12,#7c3cff,#d7ff38)",
+    hotline: "linear-gradient(135deg,#0c0c10,#ff3d81,#ffb1d0)",
+    steel: "linear-gradient(135deg,#101015,#8d9aa5,#f8f8f8)",
+    purple: "linear-gradient(135deg,#161020,#7c3cff,#ff3d81)",
+    sage: "linear-gradient(135deg,#e8ead9,#9aad88,#4f6f47)",
+    olive: "linear-gradient(135deg,#f8f4e8,#8a9a5b,#33452f)",
+    wood: "linear-gradient(135deg,#e6d8bc,#8d6138,#3f2d1d)",
+    linen: "linear-gradient(135deg,#faf7ec,#d8c8a5,#6f8a62)",
+    moss: "linear-gradient(135deg,#263520,#6f8a62,#c7d0b5)",
+    sun: "linear-gradient(135deg,#f8f4e8,#f3c96b,#6f8a62)",
+    blush: "linear-gradient(135deg,#fff5f7,#f2bacd,#d98aa8)",
+    lavender: "linear-gradient(135deg,#fff5f7,#d9c4ff,#f2bacd)",
+    rose: "linear-gradient(135deg,#fff,#ffd7e5,#bd6f90)",
+    pearl: "linear-gradient(135deg,#fff,#f4e8ef,#d98aa8)",
+    cream: "linear-gradient(135deg,#fff8ee,#fff,#f1c2d4)",
+    pink: "linear-gradient(135deg,#fff0f7,#ff9cc5,#d98aa8)",
+    gold: "linear-gradient(135deg,#2b1019,#d5b16b,#fff0c7)",
+    velvet: "linear-gradient(135deg,#2b1019,#741d3a,#d5b16b)",
+    champagne: "linear-gradient(135deg,#f7ead9,#d5b16b,#7a4d22)",
+    ruby: "linear-gradient(135deg,#220711,#8e1737,#f7ead9)",
+    wine: "linear-gradient(135deg,#2b1019,#421927,#d5b16b)",
+    bronze: "linear-gradient(135deg,#2b1019,#9f6b35,#d5b16b)",
+    ice: "linear-gradient(135deg,#ffffff,#dff7fb,#2aa7a3)",
+    blue: "linear-gradient(135deg,#ffffff,#bfefff,#238b88)",
+    white: "linear-gradient(135deg,#ffffff,#eef8fb,#c7dce0)",
+    mint: "linear-gradient(135deg,#ffffff,#dff7e7,#2aa7a3)",
+    aqua: "linear-gradient(135deg,#eef8fb,#bde8eb,#2aa7a3)",
+    paper: "linear-gradient(135deg,#ffffff,#f5f7f8,#dff7fb)",
+    chrome: "linear-gradient(135deg,#fff0fb,#ff4fb8,#7c3cff,#ffffff)",
+    hotpink: "linear-gradient(135deg,#251232,#ff4fb8,#fff0fb)",
+    sticker: "linear-gradient(135deg,#fff0fb,#d7ff38,#ff4fb8)",
+    violet: "linear-gradient(135deg,#fff0fb,#7c3cff,#ff4fb8)",
+    flash: "linear-gradient(135deg,#ffffff,#ff4fb8,#f9ff5a)",
+  };
+
   return (
-    <a
-      className={`inline-flex h-12 items-center justify-center gap-2 rounded-md px-5 text-sm font-semibold transition focus:outline-none focus:ring-4 ${
-        dark
-          ? "bg-white text-slate-950 hover:bg-slate-100 focus:ring-white/30"
-          : "bg-[#16a34a] text-white shadow-lg shadow-emerald-950/20 hover:bg-[#15803d] focus:ring-emerald-200"
-      } ${className}`}
-      href={templateWhatsAppUrl(template)}
-      rel="noreferrer"
-      target="_blank"
+    <figure
+      className={`relative min-h-52 overflow-hidden ${theme.radius} ${index % 3 === 0 ? "md:row-span-2 md:min-h-80" : ""}`}
+      style={{ background: gradients[item.tone] ?? `linear-gradient(135deg, ${theme.accent}, #ffffff)` }}
     >
-      <MessageCircle size={18} />
-      WhatsApp Randevu
-    </a>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,.45),transparent_18%),linear-gradient(115deg,transparent_40%,rgba(255,255,255,.28)_42%,transparent_46%)]" />
+      <figcaption className="absolute bottom-3 left-3 right-3 flex items-center justify-between rounded-md bg-black/35 px-3 py-2 text-xs font-semibold text-white backdrop-blur-md">
+        {item.title}
+        <span>0{index + 1}</span>
+      </figcaption>
+    </figure>
   );
 }
 
-function MiniMap({ template, tone = "light" }: { template: TemplateDefinition; tone?: "light" | "dark" }) {
+function Avatar({ label, theme }: { label: string; theme: Theme }) {
   return (
     <div
-      className={`map-fallback relative min-h-[280px] overflow-hidden rounded-lg border ${
-        tone === "dark" ? "border-white/15" : "border-slate-200"
-      }`}
+      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
+      style={{ backgroundColor: theme.accent }}
     >
-      <div className="absolute left-5 top-5 rounded-md bg-white/90 px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm">
-        {template.mapLabel}
-      </div>
-      <div
-        className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-md px-4 py-3 text-sm font-semibold text-white shadow-xl"
-        style={{ backgroundColor: template.accent }}
-      >
-        <MapPin size={18} />
-        {template.brand}
-      </div>
+      {label}
     </div>
   );
 }
 
-function ContactBand({
+function BookingDrawer({
+  open,
+  onClose,
   template,
-  dark = false,
+  theme,
+}: {
+  open: boolean;
+  onClose: () => void;
+  template: TemplateDefinition;
+  theme: Theme;
+}) {
+  const [selected, setSelected] = useState(template.services[0].name);
+  const service = template.services.find((item) => item.name === selected) ?? template.services[0];
+
+  return (
+    <div className={`fixed inset-0 z-[80] ${open ? "pointer-events-auto" : "pointer-events-none"}`} aria-hidden={!open}>
+      <button
+        aria-label="Randevu panelini kapat"
+        className={`absolute inset-0 bg-black/55 transition-opacity ${open ? "opacity-100" : "opacity-0"}`}
+        onClick={onClose}
+        type="button"
+      />
+      <aside
+        className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white p-5 text-slate-950 shadow-2xl transition-transform duration-300 ${open ? "translate-x-0" : "translate-x-full"}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${template.brand} randevu formu`}
+      >
+        <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+          <div>
+            <p className="text-sm font-semibold" style={{ color: theme.accent }}>
+              {template.brand}
+            </p>
+            <h2 className="text-2xl font-semibold">Randevu Al</h2>
+          </div>
+          <button className="rounded-md border border-slate-200 p-2 hover:bg-slate-50" onClick={onClose} type="button">
+            <X size={20} />
+          </button>
+        </div>
+
+        <div className="mt-5 grid gap-3">
+          {template.services.map((item) => (
+            <button
+              className={`rounded-lg border p-4 text-left transition ${
+                item.name === selected ? "border-slate-950 bg-slate-950 text-white" : "border-slate-200 hover:bg-slate-50"
+              }`}
+              key={item.name}
+              onClick={() => setSelected(item.name)}
+              type="button"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <span className="font-semibold">{item.name}</span>
+                <span>{item.price}</span>
+              </div>
+              <p className={`mt-2 text-sm ${item.name === selected ? "text-white/70" : "text-slate-600"}`}>
+                {item.duration} - {item.text}
+              </p>
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-5 rounded-lg bg-slate-50 p-4">
+          <div className="flex items-center justify-between text-sm">
+            <span>Seçili hizmet</span>
+            <strong>{service.name}</strong>
+          </div>
+          <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
+            <div className="rounded-md bg-white p-3">
+              <Clock className="mb-2" size={18} />
+              {service.duration}
+            </div>
+            <div className="rounded-md bg-white p-3">
+              <CalendarCheck className="mb-2" size={18} />
+              {service.price}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-5 grid gap-3">
+          <input className="h-12 rounded-md border border-slate-200 px-4 text-sm" placeholder="Ad soyad" />
+          <input className="h-12 rounded-md border border-slate-200 px-4 text-sm" placeholder="Telefon" />
+          <select className="h-12 rounded-md border border-slate-200 px-4 text-sm" defaultValue="Bugün">
+            <option>Bugün</option>
+            <option>Yarın</option>
+            <option>Bu hafta</option>
+          </select>
+        </div>
+
+        <a
+          className="mt-auto inline-flex h-12 items-center justify-center gap-2 rounded-md text-sm font-semibold text-white"
+          href={templateWhatsAppUrl(template)}
+          rel="noreferrer"
+          style={{ backgroundColor: theme.accent }}
+          target="_blank"
+        >
+          <MessageCircle size={18} />
+          WhatsApp ile gönder
+        </a>
+      </aside>
+    </div>
+  );
+}
+
+function Header({
+  template,
+  theme,
+  onBook,
 }: {
   template: TemplateDefinition;
-  dark?: boolean;
+  theme: Theme;
+  onBook: () => void;
 }) {
   return (
-    <section
-      className={`px-5 py-16 ${
-        dark ? "bg-slate-950 text-white" : "bg-white text-slate-950"
-      }`}
-      id="iletisim"
-    >
-      <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-stretch">
-        <div className={`rounded-lg p-6 ${dark ? "bg-white/8" : "bg-slate-50"}`}>
-          <h2 className="text-3xl font-semibold">Randevu ve iletişim</h2>
-          <div className={`mt-6 grid gap-4 text-sm ${dark ? "text-white/75" : "text-slate-650"}`}>
+    <header className={`sticky top-0 z-50 border-b backdrop-blur-xl ${theme.header}`}>
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
+        <Link className={`text-xl font-semibold ${theme.font}`} href="/">
+          {template.brand}
+        </Link>
+        <div className={`hidden items-center gap-6 text-sm font-semibold ${theme.muted} md:flex`}>
+          <a href="#hakkimizda">Hakkımızda</a>
+          <a href="#hizmetler">Hizmetler</a>
+          <a href="#galeri">Galeri</a>
+          <a href="#yorumlar">Yorumlar</a>
+        </div>
+        <button className={`inline-flex h-10 items-center gap-2 px-4 text-sm font-semibold ${theme.radius} ${theme.button}`} onClick={onBook} type="button">
+          <CalendarCheck size={17} />
+          Randevu Al
+        </button>
+      </nav>
+    </header>
+  );
+}
+
+function Hero({ template, theme, onBook }: { template: TemplateDefinition; theme: Theme; onBook: () => void }) {
+  const isEditorial = template.layout === "editorial-grooming";
+  const isTattoo = template.layout === "tattoo-fade";
+  const isEco = template.layout === "eco-barber";
+  const isLuxury = template.layout === "velvet-luxury";
+  const isClinical = template.layout === "clinical-minimal";
+  const isY2k = template.layout === "y2k-beauty";
+
+  if (isEditorial) {
+    return (
+      <section className="px-5 py-16 md:py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid items-end gap-10 border-b border-black pb-10 lg:grid-cols-[1.1fr_.9fr]">
+            <h1 className="max-w-4xl text-6xl font-semibold uppercase leading-none md:text-8xl">{template.heroTitle}</h1>
+            <div>
+              <p className="text-lg leading-8 text-black/65">{template.heroText}</p>
+              <button className={`mt-8 h-12 px-6 text-sm font-semibold ${theme.button}`} onClick={onBook} type="button">
+                Randevu Al
+              </button>
+            </div>
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-4">
+            {template.highlights.map((item) => (
+              <div className="border-t border-black pt-4 text-sm font-semibold uppercase" key={item}>
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (isTattoo) {
+    return (
+      <section className="overflow-hidden px-5 py-16">
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+          <div className="relative">
+            <div className="absolute -left-6 top-10 rotate-[-9deg] bg-[#d7ff38] px-4 py-2 text-sm font-black text-black">DROP NOW</div>
+            <h1 className="text-6xl font-black uppercase leading-[.9] md:text-8xl">{template.heroTitle}</h1>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-white/72">{template.heroText}</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <button className={`h-12 px-6 text-sm font-black uppercase ${theme.radius} ${theme.button}`} onClick={onBook} type="button">
+                Randevu Al
+              </button>
+              <a className={`inline-flex h-12 items-center gap-2 border px-5 text-sm font-black uppercase ${theme.radius} ${theme.outline}`} href="#galeri">
+                Galeri
+                <ArrowUpRight size={18} />
+              </a>
+            </div>
+          </div>
+          <div className="grid rotate-2 gap-3 border border-[#d7ff38]/35 bg-[#15151c] p-3 shadow-2xl shadow-[#ff3d81]/15 sm:grid-cols-2">
+            {template.gallery.slice(0, 4).map((item, index) => (
+              <GalleryMock item={item} index={index} key={item.title} theme={theme} />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (isEco) {
+    return (
+      <section className="px-5 py-16">
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.95fr_1.05fr] lg:items-center">
+          <div className="rounded-[2rem] border border-[#6f8a62]/25 bg-[#f8f4e8] p-8 md:p-12">
+            <Leaf className="mb-8 text-[#4f6f47]" size={34} />
+            <h1 className="font-serif text-5xl leading-tight md:text-7xl">{template.heroTitle}</h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#465943]">{template.heroText}</p>
+            <button className={`mt-8 h-12 px-6 text-sm font-semibold ${theme.radius} ${theme.button}`} onClick={onBook} type="button">
+              Randevu Al
+            </button>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {template.highlights.map((item) => (
+              <div className="rounded-[2rem] bg-[#f8f4e8] p-7 text-xl font-semibold" key={item}>
+                {item}
+              </div>
+            ))}
+            <GalleryMock item={template.gallery[0]} index={0} theme={theme} />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (isLuxury) {
+    return (
+      <section className="px-5 py-16">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.82fr_1.18fr] lg:items-center">
+          <GalleryMock item={template.gallery[0]} index={0} theme={theme} />
+          <div>
+            <h1 className="font-serif text-5xl font-semibold leading-tight md:text-7xl">{template.heroTitle}</h1>
+            <p className="mt-7 max-w-xl text-lg leading-8 text-[#f7ead9]/72">{template.heroText}</p>
+            <div className="mt-8 border-l border-[#d5b16b] pl-6">
+              {template.highlights.map((item) => (
+                <p className="py-2 text-sm font-semibold uppercase text-[#d5b16b]" key={item}>{item}</p>
+              ))}
+            </div>
+            <button className={`mt-8 h-12 px-6 text-sm font-semibold ${theme.radius} ${theme.button}`} onClick={onBook} type="button">
+              Concierge Randevu
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (isClinical) {
+    return (
+      <section className="bg-[#eef8fb] px-5 py-16">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
+          <div>
+            <div className="mb-6 inline-flex items-center gap-2 rounded-md bg-white px-3 py-2 text-sm font-semibold text-[#238b88]">
+              <ShieldCheck size={17} />
+              Hijyen ve süreç bilgisi önde
+            </div>
+            <h1 className="text-5xl font-semibold leading-tight md:text-7xl">{template.heroTitle}</h1>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">{template.heroText}</p>
+            <button className={`mt-8 h-12 px-6 text-sm font-semibold ${theme.radius} ${theme.button}`} onClick={onBook} type="button">
+              Ön Görüşme Al
+            </button>
+          </div>
+          <div className="grid gap-4">
+            {template.services.map((service) => (
+              <div className="rounded-lg bg-white p-5 shadow-sm" key={service.name}>
+                <div className="flex items-center justify-between gap-4">
+                  <strong>{service.name}</strong>
+                  <span className="text-sm font-semibold text-[#238b88]">{service.duration}</span>
+                </div>
+                <p className="mt-2 text-sm text-slate-600">{service.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (isY2k) {
+    return (
+      <section className="overflow-hidden px-5 py-16">
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
+          <div>
+            <div className="mb-6 inline-flex rotate-[-3deg] rounded-full bg-[#d7ff38] px-5 py-2 text-sm font-black text-[#251232]">TREND DROP</div>
+            <h1 className="text-5xl font-black uppercase leading-none md:text-8xl">{template.heroTitle}</h1>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-[#66406f]">{template.heroText}</p>
+            <button className={`mt-8 h-12 px-6 text-sm font-black uppercase ${theme.radius} ${theme.button}`} onClick={onBook} type="button">
+              Randevu Al
+            </button>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {template.gallery.slice(0, 4).map((item, index) => (
+              <GalleryMock item={item} index={index} key={item.title} theme={theme} />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="px-5 pb-20 pt-14">
+      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.92fr_1.08fr] lg:items-end">
+        <div>
+          <div className="mb-5 h-1 w-24" style={{ backgroundColor: theme.accent }} />
+          <h1 className={`text-5xl font-semibold leading-tight md:text-7xl ${theme.font}`}>{template.heroTitle}</h1>
+          <p className={`mt-6 max-w-xl text-lg leading-8 ${theme.muted}`}>{template.heroText}</p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <button className={`h-12 px-6 text-sm font-semibold ${theme.radius} ${theme.button}`} onClick={onBook} type="button">
+              Randevu Al
+            </button>
+            <a className={`inline-flex h-12 items-center justify-center gap-2 border px-5 text-sm font-semibold ${theme.radius} ${theme.outline}`} href="#hizmetler">
+              Hizmetleri gör
+              <ArrowUpRight size={17} />
+            </a>
+          </div>
+        </div>
+        <div className={`grid gap-3 border p-3 ${theme.radius} ${theme.surface} ${theme.border}`}>
+          {template.gallery.slice(0, 3).map((item, index) => (
+            <GalleryMock item={item} index={index} key={item.title} theme={theme} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Services({ template, theme }: { template: TemplateDefinition; theme: Theme }) {
+  const compact = template.layout === "editorial-grooming" || template.layout === "clinical-minimal";
+  return (
+    <section className="px-5 py-20" id="hizmetler">
+      <div className={`mx-auto max-w-7xl ${compact ? "" : "grid gap-8 lg:grid-cols-[.8fr_1.2fr]"}`}>
+        <div>
+          <h2 className={`text-4xl font-semibold md:text-6xl ${theme.font}`}>Hizmet, fiyat ve süre net</h2>
+          <p className={`mt-5 max-w-2xl leading-8 ${theme.muted}`}>Randevu kararı için kritik bilgiler saklanmaz: hizmet adı, kısa açıklama, fiyat ve süre aynı satırda okunur.</p>
+        </div>
+        <div className={`mt-8 grid gap-4 ${compact ? "md:grid-cols-3" : ""}`}>
+          {template.services.map((service) => (
+            <article className={`border p-5 ${theme.radius} ${theme.surface} ${theme.border}`} key={service.name}>
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h3 className={`text-2xl font-semibold ${theme.font}`}>{service.name}</h3>
+                  <p className={`mt-2 leading-7 ${theme.muted}`}>{service.text}</p>
+                </div>
+                <CheckCircle2 className={theme.accentText} size={22} />
+              </div>
+              <div className="mt-5 flex items-center justify-between border-t border-current/15 pt-4 text-sm font-semibold">
+                <span>{service.duration}</span>
+                <span className={theme.accentText}>{service.price}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function About({ template, theme }: { template: TemplateDefinition; theme: Theme }) {
+  return (
+    <section className={`px-5 py-20 ${template.layout === "editorial-grooming" ? "bg-black text-white" : ""}`} id="hakkimizda">
+      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_1fr] lg:items-start">
+        <div>
+          <h2 className={`text-4xl font-semibold md:text-6xl ${theme.font}`}>{template.aboutTitle}</h2>
+          <p className={`mt-6 text-lg leading-8 ${template.layout === "editorial-grooming" ? "text-white/72" : theme.muted}`}>{template.aboutText}</p>
+        </div>
+        <div className="grid gap-4">
+          {template.team.map((member) => (
+            <article className={`flex gap-4 border p-5 ${theme.radius} ${template.layout === "editorial-grooming" ? "border-white/18 bg-white/8" : `${theme.surface} ${theme.border}`}`} key={member.name}>
+              <Avatar label={member.avatar} theme={theme} />
+              <div>
+                <h3 className="text-xl font-semibold">{member.name}</h3>
+                <p className={theme.accentText}>{member.role}</p>
+                <p className={`mt-2 leading-7 ${template.layout === "editorial-grooming" ? "text-white/70" : theme.muted}`}>{member.bio}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Packages({ template, theme }: { template: TemplateDefinition; theme: Theme }) {
+  return (
+    <section className="px-5 py-20">
+      <div className="mx-auto max-w-7xl">
+        <h2 className={`text-4xl font-semibold md:text-6xl ${theme.font}`}>Paketler</h2>
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
+          {template.packages.map((pack) => (
+            <article className={`border p-7 ${theme.radius} ${theme.surface} ${theme.border}`} key={pack.name}>
+              <h3 className={`text-3xl font-semibold ${theme.font}`}>{pack.name}</h3>
+              <p className={`mt-4 text-4xl font-bold ${theme.accentText}`}>{pack.price}</p>
+              <p className={`mt-4 leading-8 ${theme.muted}`}>{pack.details}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Gallery({ template, theme }: { template: TemplateDefinition; theme: Theme }) {
+  return (
+    <section className="px-5 py-20" id="galeri">
+      <div className="mx-auto max-w-7xl">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <h2 className={`text-4xl font-semibold md:text-6xl ${theme.font}`}>Galeri</h2>
+            <p className={`mt-4 max-w-2xl leading-8 ${theme.muted}`}>Telif riski taşımayan, CSS tabanlı görsel mockup kartlarıyla her şablonun galeri rengi ayrı tutulur.</p>
+          </div>
+          <span className={`inline-flex w-fit items-center gap-2 border px-4 py-2 text-sm font-semibold ${theme.radius} ${theme.border}`}>
+            <Sparkles size={17} />
+            6 görsel alanı
+          </span>
+        </div>
+        <div className="mt-8 grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {template.gallery.map((item, index) => (
+            <GalleryMock item={item} index={index} key={item.title} theme={theme} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Reviews({ template, theme }: { template: TemplateDefinition; theme: Theme }) {
+  return (
+    <section className="px-5 py-20" id="yorumlar">
+      <div className="mx-auto max-w-7xl">
+        <h2 className={`text-4xl font-semibold md:text-6xl ${theme.font}`}>Müşteri yorumu ve sosyal kanıt</h2>
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {template.reviews.map((review) => (
+            <article className={`border p-5 ${theme.radius} ${theme.surface} ${theme.border}`} key={review.name}>
+              <Quote className={theme.accentText} size={24} />
+              <p className={`mt-5 leading-7 ${theme.muted}`}>{review.text}</p>
+              <div className="mt-6 flex items-center gap-3">
+                <Avatar label={review.avatar} theme={theme} />
+                <div>
+                  <div className="font-semibold">{review.name}</div>
+                  <div className={`text-sm ${theme.muted}`}>{review.role}</div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Contact({ template, theme, onBook }: { template: TemplateDefinition; theme: Theme; onBook: () => void }) {
+  return (
+    <section className="px-5 py-20" id="iletisim">
+      <div className={`mx-auto grid max-w-7xl gap-6 border p-5 md:grid-cols-[.8fr_1.2fr] ${theme.radius} ${theme.surface} ${theme.border}`}>
+        <div className="p-3">
+          <h2 className={`text-3xl font-semibold ${theme.font}`}>Randevu ve iletişim</h2>
+          <div className={`mt-6 grid gap-4 text-sm ${theme.muted}`}>
             <a className="flex items-center gap-3" href={phoneHref(template.phone)}>
               <Phone size={18} />
               {template.phone}
@@ -106,604 +708,77 @@ function ContactBand({
               </div>
             </div>
           </div>
-          <Cta className="mt-7 w-full" dark={dark} template={template} />
+          <button className={`mt-7 h-12 w-full px-6 text-sm font-semibold ${theme.radius} ${theme.button}`} onClick={onBook} type="button">
+            Randevu Panelini Aç
+          </button>
         </div>
-        <MiniMap template={template} tone={dark ? "dark" : "light"} />
+        <div className={`relative min-h-72 overflow-hidden ${theme.radius}`} style={{ background: `linear-gradient(135deg, ${theme.accent}, rgba(255,255,255,.6))` }}>
+          <div className="absolute inset-0 map-fallback opacity-55" />
+          <div className="absolute left-5 top-5 rounded-md bg-white/90 px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm">
+            {template.mapLabel}
+          </div>
+          <div className="absolute bottom-5 right-5 rounded-md bg-slate-950 px-4 py-3 text-sm font-semibold text-white shadow-xl">
+            {template.brand}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
-function ReviewCards({
-  template,
-  className = "",
-}: {
-  template: TemplateDefinition;
-  className?: string;
-}) {
+function FloatingAction({ onBook, tone }: { onBook: () => void; tone: Tone }) {
   return (
-    <div className={`grid gap-4 md:grid-cols-2 ${className}`}>
-      {template.reviews.map((review) => (
-        <article className="rounded-lg border border-current/15 p-5" key={review.name}>
-          <Quote className="mb-4 opacity-60" size={22} />
-          <p className="leading-7">{review.text}</p>
-          <div className="mt-5 text-sm font-semibold">{review.name}</div>
-        </article>
-      ))}
-    </div>
-  );
-}
-
-function ClassicBarber({ template }: { template: TemplateDefinition }) {
-  return (
-    <main className="min-h-screen bg-[#251812] text-[#f8ead5]">
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-[#f2c27d]/25 bg-[#251812]/90 backdrop-blur-xl">
-        <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-          <Link className="font-serif text-2xl font-semibold" href="/">
-            {template.brand}
-          </Link>
-          <div className="hidden items-center gap-6 text-sm font-semibold text-[#f8ead5]/75 md:flex">
-            <a href="#hizmetler">Hizmetler</a>
-            <a href="#fiyatlar">Fiyat Panosu</a>
-            <a href="#galeri">Galeri</a>
-            <a href="#iletisim">İletişim</a>
-          </div>
-          <Cta className="h-10 px-4" template={template} />
-        </nav>
-      </header>
-
-      <section className="px-5 pb-20 pt-28">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
-          <div>
-            <div className="mb-5 h-1 w-24 bg-[#d39b55]" />
-            <h1 className="font-serif text-5xl font-semibold leading-none md:text-7xl">
-              {template.heroTitle}
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-[#f8ead5]/75">
-              {template.heroText}
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Cta template={template} />
-              <a
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-[#d39b55]/50 px-5 text-sm font-semibold text-[#f8ead5] transition hover:bg-[#d39b55]/15"
-                href="#fiyatlar"
-              >
-                Fiyat panosuna bak
-                <ArrowUpRight size={17} />
-              </a>
-            </div>
-          </div>
-          <div className="relative">
-            <img
-              alt={`${template.brand} klasik berber demo görseli`}
-              className="aspect-[4/3] w-full rounded-lg object-cover"
-              src={template.heroImage}
-            />
-            <div className="absolute -bottom-6 left-5 right-5 rounded-lg border border-[#d39b55]/30 bg-[#3a251a] p-5 shadow-2xl shadow-black/30">
-              <div className="grid gap-3 sm:grid-cols-3">
-                {template.highlights.map((item) => (
-                  <div className="text-sm font-semibold" key={item}>
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#f8ead5] px-5 py-20 text-[#251812]" id="fiyatlar">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.8fr_1.2fr]">
-          <div>
-            <h2 className="font-serif text-4xl font-semibold">Tahta fiyat panosu</h2>
-            <p className="mt-4 leading-7 text-[#6f4a32]">
-              Geleneksel berber müşterisi için en kritik bilgiler: hizmet, fiyat,
-              saat ve hızlı randevu aynı ekranda.
-            </p>
-          </div>
-          <div className="rounded-lg bg-[#2f1d15] p-4 text-[#f8ead5] shadow-xl">
-            {template.services.map((service) => (
-              <div
-                className="grid gap-3 border-b border-[#d39b55]/20 py-5 sm:grid-cols-[1fr_auto]"
-                key={service.name}
-              >
-                <div>
-                  <h3 className="font-serif text-2xl">{service.name}</h3>
-                  <p className="mt-1 text-sm leading-6 text-[#f8ead5]/70">
-                    {service.text}
-                  </p>
-                </div>
-                <div className="font-serif text-2xl text-[#d39b55]">
-                  {service.price}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-5 py-20" id="hizmetler">
-        <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-2">
-          {template.packages.map((pack) => (
-            <article className="rounded-lg border border-[#d39b55]/25 bg-[#311f17] p-7" key={pack.name}>
-              <h3 className="font-serif text-3xl">{pack.name}</h3>
-              <p className="mt-4 text-3xl font-bold text-[#d39b55]">{pack.price}</p>
-              <p className="mt-3 leading-7 text-[#f8ead5]/70">{pack.details}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-[#1a100c] px-5 py-20" id="galeri">
-        <div className="mx-auto max-w-7xl">
-          <h2 className="font-serif text-4xl font-semibold">Dükkan atmosferi</h2>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {template.gallery.map((item, index) => (
-              <img
-                alt={item.alt}
-                className={`h-72 w-full rounded-lg object-cover ${index === 1 ? "md:mt-10" : ""}`}
-                key={item.src}
-                src={item.src}
-              />
-            ))}
-          </div>
-          <ReviewCards className="mt-10 text-[#f8ead5]" template={template} />
-        </div>
-      </section>
-
-      <ContactBand dark template={template} />
-    </main>
-  );
-}
-
-function PremiumBarber({ template }: { template: TemplateDefinition }) {
-  return (
-    <main className="min-h-screen bg-[#f6f5ef] text-[#111111]">
-      <header className="sticky top-0 z-50 border-b border-black/10 bg-[#f6f5ef]/90 backdrop-blur-xl">
-        <nav className="mx-auto grid h-16 max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-5 text-sm font-semibold">
-          <Link href="/">{template.brand}</Link>
-          <div className="hidden gap-7 md:flex">
-            <a href="#servisler">Servisler</a>
-            <a href="#paketler">Paketler</a>
-            <a href="#iletisim">Randevu</a>
-          </div>
-          <a className="justify-self-end border-b border-black pb-1" href={templateWhatsAppUrl(template)} rel="noreferrer" target="_blank">
-            Book Studio
-          </a>
-        </nav>
-      </header>
-
-      <section className="px-5 py-16">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-          <div>
-            <h1 className="max-w-4xl text-5xl font-semibold leading-none md:text-7xl">
-              {template.heroTitle}
-            </h1>
-            <p className="mt-8 max-w-xl text-lg leading-8 text-black/62">
-              {template.heroText}
-            </p>
-            <div className="mt-10 grid max-w-xl border-y border-black">
-              {template.highlights.map((item) => (
-                <div className="flex items-center justify-between border-b border-black/15 py-4 text-sm font-semibold last:border-b-0" key={item}>
-                  {item}
-                  <ArrowUpRight size={16} />
-                </div>
-              ))}
-            </div>
-          </div>
-          <img
-            alt={`${template.brand} premium barber studio demo görseli`}
-            className="aspect-[3/4] w-full object-cover grayscale"
-            src={template.heroImage}
-          />
-        </div>
-      </section>
-
-      <section className="border-y border-black bg-[#111] px-5 py-10 text-[#f6f5ef]" id="servisler">
-        <div className="mx-auto flex max-w-7xl snap-x gap-4 overflow-x-auto pb-2">
-          {template.services.map((service) => (
-            <article className="min-w-[280px] border border-white/20 p-6" key={service.name}>
-              <div className="text-sm text-white/55">{service.price}</div>
-              <h3 className="mt-5 text-2xl font-semibold">{service.name}</h3>
-              <p className="mt-4 leading-7 text-white/62">{service.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="px-5 py-20" id="paketler">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.7fr_1.3fr]">
-          <h2 className="text-4xl font-semibold md:text-6xl">Minimal paket tablosu</h2>
-          <div className="grid gap-0 border-y border-black">
-            {template.packages.map((pack) => (
-              <div className="grid gap-4 border-b border-black/15 py-7 last:border-b-0 md:grid-cols-[1fr_auto]" key={pack.name}>
-                <div>
-                  <h3 className="text-2xl font-semibold">{pack.name}</h3>
-                  <p className="mt-2 text-black/62">{pack.details}</p>
-                </div>
-                <div className="text-3xl font-semibold">{pack.price}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-5 pb-20">
-        <div className="mx-auto grid max-w-7xl gap-4 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
-          {template.gallery.map((item) => (
-            <img alt={item.alt} className="h-[420px] w-full object-cover grayscale" key={item.src} src={item.src} />
-          ))}
-        </div>
-        <div className="mx-auto mt-12 max-w-5xl border-l-4 border-black pl-6">
-          <p className="text-3xl leading-tight md:text-5xl">
-            “{template.reviews[0].text}”
-          </p>
-          <div className="mt-5 text-sm font-semibold">{template.reviews[0].name}</div>
-        </div>
-      </section>
-
-      <ContactBand template={template} />
-    </main>
-  );
-}
-
-function UrbanFade({ template }: { template: TemplateDefinition }) {
-  return (
-    <main className="min-h-screen bg-[#101010] text-white">
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-[#d7ff38]/40 bg-[#101010]/90 backdrop-blur-xl">
-        <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-          <Link className="text-2xl font-black uppercase" href="/">
-            {template.brand}
-          </Link>
-          <div className="hidden items-center gap-5 text-sm font-black uppercase md:flex">
-            <a href="#servisler">Cuts</a>
-            <a href="#galeri">Grid</a>
-            <a href="#iletisim">WhatsApp</a>
-          </div>
-          <Cta className="h-10 bg-[#d7ff38] px-4 text-black hover:bg-[#c2ed20]" template={template} />
-        </nav>
-      </header>
-
-      <section className="relative isolate overflow-hidden px-5 pb-16 pt-28">
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,#101010_0%,#101010_42%,#d7ff38_42%,#d7ff38_56%,#ff3d81_56%,#ff3d81_68%,#101010_68%)] opacity-80" />
-        <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div className="order-2 lg:order-1">
-            <div className="inline-flex rotate-[-2deg] bg-[#d7ff38] px-4 py-2 text-sm font-black uppercase text-black">
-              Bugün fresh görün
-            </div>
-            <h1 className="mt-6 text-5xl font-black uppercase leading-none md:text-8xl">
-              {template.heroTitle}
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-white/76">
-              {template.heroText}
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Cta className="bg-[#ff3d81] hover:bg-[#e52f72]" template={template} />
-              <a className="inline-flex h-12 items-center justify-center rounded-md border border-white/30 px-5 text-sm font-black uppercase" href="#servisler">
-                Kesimleri gör
-              </a>
-            </div>
-          </div>
-          <div className="relative order-1 lg:order-2">
-            <img alt={`${template.brand} urban fade demo görseli`} className="aspect-[4/3] w-full rotate-1 rounded-lg object-cover shadow-2xl shadow-black/50" src={template.heroImage} />
-            <div className="absolute -bottom-5 left-5 rotate-[-3deg] bg-[#d7ff38] px-5 py-3 text-xl font-black uppercase text-black">
-              Fade Menü
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="px-5 py-16" id="servisler">
-        <div className="mx-auto grid max-w-7xl gap-4 md:grid-cols-3">
-          {template.services.map((service, index) => (
-            <article className={`rounded-lg p-6 text-black ${index === 1 ? "bg-[#d7ff38]" : "bg-white"}`} key={service.name}>
-              <div className="text-4xl font-black">{service.price}</div>
-              <h3 className="mt-6 text-2xl font-black uppercase">{service.name}</h3>
-              <p className="mt-3 leading-7 text-black/70">{service.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-[#d7ff38] px-5 py-12 text-black">
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-4 md:flex-row md:items-center">
-          <h2 className="text-4xl font-black uppercase md:text-6xl">Haftanın kampanyası: fresh cut + sakal</h2>
-          <Cta className="bg-black text-white hover:bg-[#222]" template={template} />
-        </div>
-      </section>
-
-      <section className="px-5 py-20" id="galeri">
-        <div className="mx-auto grid max-w-7xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {template.gallery.concat(template.gallery.slice(0, 1)).map((item, index) => (
-            <img alt={item.alt} className={`w-full rounded-lg object-cover ${index % 2 === 0 ? "h-80" : "h-56"}`} key={`${item.src}-${index}`} src={item.src} />
-          ))}
-        </div>
-        <ReviewCards className="mx-auto mt-10 max-w-5xl text-white" template={template} />
-      </section>
-
-      <ContactBand dark template={template} />
-    </main>
-  );
-}
-
-function SoftBeauty({ template }: { template: TemplateDefinition }) {
-  return (
-    <main className="min-h-screen bg-[#fff7f8] text-[#3c2b32]">
-      <header className="sticky top-0 z-50 border-b border-[#efd3dc] bg-[#fff7f8]/88 backdrop-blur-xl">
-        <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-          <Link className="font-serif text-2xl font-semibold" href="/">
-            {template.brand}
-          </Link>
-          <div className="hidden items-center gap-6 text-sm font-semibold text-[#7c5b66] md:flex">
-            <a href="#hizmetler">Hizmetler</a>
-            <a href="#galeri">Galeri</a>
-            <a href="#iletisim">Randevu</a>
-          </div>
-          <Cta className="h-10 bg-[#d98aa8] px-4 hover:bg-[#c67595]" template={template} />
-        </nav>
-      </header>
-
-      <section className="px-5 py-16">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
-          <div>
-            <h1 className="font-serif text-5xl font-semibold leading-tight md:text-7xl">
-              {template.heroTitle}
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-[#755763]">
-              {template.heroText}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              {template.highlights.map((item) => (
-                <span className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#8f6073] shadow-sm" key={item}>
-                  {item}
-                </span>
-              ))}
-            </div>
-            <Cta className="mt-9 bg-[#d98aa8] hover:bg-[#c67595]" template={template} />
-          </div>
-          <div className="relative">
-            <img alt={`${template.brand} pastel güzellik salonu demo görseli`} className="aspect-[4/5] w-full rounded-[2rem] object-cover shadow-xl shadow-pink-950/10" src={template.heroImage} />
-            <div className="absolute -bottom-6 -left-2 rounded-[1.5rem] bg-white p-5 shadow-xl shadow-pink-950/10">
-              <Sparkles className="text-[#d98aa8]" size={24} />
-              <p className="mt-2 max-w-48 text-sm font-semibold">Sakin, zarif ve mobil uyumlu güzellik vitrini.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="px-5 py-20" id="hizmetler">
-        <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
-          {template.services.map((service) => (
-            <article className="rounded-[1.5rem] bg-white p-7 shadow-sm shadow-pink-950/8" key={service.name}>
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#f8dfe8] text-[#c67595]">
-                <Sparkles size={22} />
-              </div>
-              <h3 className="mt-6 font-serif text-3xl">{service.name}</h3>
-              <p className="mt-3 leading-7 text-[#755763]">{service.text}</p>
-              <div className="mt-5 text-xl font-semibold text-[#d98aa8]">{service.price}</div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-white px-5 py-20" id="galeri">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div>
-            <h2 className="font-serif text-4xl font-semibold md:text-6xl">Soft galeri akışı</h2>
-            <p className="mt-5 leading-8 text-[#755763]">Görseller büyük, nefes alan ve salon karakterini yumuşak anlatacak şekilde yerleşir.</p>
-            <ReviewCards className="mt-8" template={template} />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {template.gallery.map((item, index) => (
-              <img alt={item.alt} className={`w-full rounded-[1.5rem] object-cover ${index === 0 ? "h-80 sm:col-span-2" : "h-64"}`} key={item.src} src={item.src} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <ContactBand template={template} />
-    </main>
-  );
-}
-
-function LuxuryBeauty({ template }: { template: TemplateDefinition }) {
-  return (
-    <main className="min-h-screen bg-[#2b1019] text-[#f7ead9]">
-      <header className="sticky top-0 z-50 border-b border-[#d5b16b]/25 bg-[#2b1019]/90 backdrop-blur-xl">
-        <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-          <Link className="font-serif text-2xl font-semibold" href="/">
-            {template.brand}
-          </Link>
-          <div className="hidden items-center gap-7 text-sm font-semibold text-[#f7ead9]/70 md:flex">
-            <a href="#paketler">Paketler</a>
-            <a href="#galeri">Galeri</a>
-            <a href="#iletisim">Concierge</a>
-          </div>
-          <Cta className="h-10 bg-[#d5b16b] px-4 text-[#2b1019] hover:bg-[#c39b51]" template={template} />
-        </nav>
-      </header>
-
-      <section className="px-5 py-16">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-          <img alt={`${template.brand} luxury beauty lounge demo görseli`} className="aspect-[4/5] w-full rounded-t-full object-cover" src={template.heroImage} />
-          <div>
-            <h1 className="font-serif text-5xl font-semibold leading-tight md:text-7xl">
-              {template.heroTitle}
-            </h1>
-            <p className="mt-7 max-w-xl text-lg leading-8 text-[#f7ead9]/72">
-              {template.heroText}
-            </p>
-            <div className="mt-10 grid max-w-xl gap-4 border-l border-[#d5b16b] pl-6">
-              {template.highlights.map((item) => (
-                <div className="text-sm font-semibold uppercase text-[#d5b16b]" key={item}>
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#f7ead9] px-5 py-20 text-[#2b1019]" id="paketler">
-        <div className="mx-auto max-w-7xl">
-          <h2 className="font-serif text-5xl font-semibold md:text-7xl">Signature paketler</h2>
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
-            {template.packages.map((pack) => (
-              <article className="rounded-lg border border-[#d5b16b] bg-white/45 p-8" key={pack.name}>
-                <h3 className="font-serif text-4xl">{pack.name}</h3>
-                <p className="mt-5 text-4xl font-semibold text-[#8a6532]">{pack.price}</p>
-                <p className="mt-5 leading-8 text-[#634152]">{pack.details}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-5 py-20">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.72fr_1.28fr]">
-          <div>
-            <h2 className="font-serif text-4xl font-semibold">Lounge servisleri</h2>
-            <p className="mt-5 leading-8 text-[#f7ead9]/70">Servisler lüks algıyı bozmadan kısa, sakin ve paketlerle ilişkili sunulur.</p>
-          </div>
-          <div className="grid gap-4">
-            {template.services.map((service) => (
-              <div className="grid gap-4 border-b border-[#d5b16b]/25 pb-5 md:grid-cols-[1fr_auto]" key={service.name}>
-                <div>
-                  <h3 className="font-serif text-3xl">{service.name}</h3>
-                  <p className="mt-2 text-[#f7ead9]/68">{service.text}</p>
-                </div>
-                <div className="text-2xl text-[#d5b16b]">{service.price}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-5 pb-20" id="galeri">
-        <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
-          {template.gallery.map((item) => (
-            <img alt={item.alt} className="h-[460px] w-full rounded-lg object-cover" key={item.src} src={item.src} />
-          ))}
-        </div>
-        <div className="mx-auto mt-12 max-w-4xl text-center">
-          <p className="font-serif text-4xl leading-tight">“{template.reviews[0].text}”</p>
-          <div className="mt-5 text-[#d5b16b]">{template.reviews[0].name}</div>
-        </div>
-      </section>
-
-      <ContactBand dark template={template} />
-    </main>
-  );
-}
-
-function CleanClinic({ template }: { template: TemplateDefinition }) {
-  return (
-    <main className="min-h-screen bg-white text-[#102033]">
-      <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/92 backdrop-blur-xl">
-        <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-          <Link className="text-xl font-semibold" href="/">
-            {template.brand}
-          </Link>
-          <div className="hidden items-center gap-6 text-sm font-semibold text-slate-600 md:flex">
-            <a href="#hizmetler">Uygulamalar</a>
-            <a href="#surec">Süreç</a>
-            <a href="#iletisim">İletişim</a>
-          </div>
-          <Cta className="h-10 bg-[#2aa7a3] px-4 hover:bg-[#238b88]" template={template} />
-        </nav>
-      </header>
-
-      <section className="bg-[#eef8fb] px-5 py-16">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
-          <div>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-md bg-white px-3 py-2 text-sm font-semibold text-[#2aa7a3]">
-              <ShieldCheck size={17} />
-              Hijyen ve süreç bilgisi önde
-            </div>
-            <h1 className="text-5xl font-semibold leading-tight md:text-7xl">
-              {template.heroTitle}
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-              {template.heroText}
-            </p>
-            <Cta className="mt-8 bg-[#2aa7a3] hover:bg-[#238b88]" template={template} />
-          </div>
-          <div className="rounded-lg bg-white p-3 shadow-xl shadow-cyan-950/10">
-            <img alt={`${template.brand} clean clinic demo görseli`} className="aspect-[4/3] w-full rounded-md object-cover" src={template.heroImage} />
-            <div className="grid gap-3 p-4 sm:grid-cols-3">
-              {template.highlights.map((item) => (
-                <div className="rounded-md bg-[#eef8fb] p-3 text-sm font-semibold text-[#238b88]" key={item}>
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="px-5 py-20" id="hizmetler">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.8fr_1.2fr]">
-          <div>
-            <h2 className="text-4xl font-semibold md:text-6xl">Net hizmet açıklamaları</h2>
-            <p className="mt-5 leading-8 text-slate-600">Klinik tipte müşterinin aradığı şey netliktir: ne yapılır, süreç nasıl işler ve randevu nasıl alınır.</p>
-          </div>
-          <div className="grid gap-4">
-            {template.services.map((service) => (
-              <article className="rounded-lg border border-slate-200 p-5" key={service.name}>
-                <div className="flex items-start gap-4">
-                  <CheckCircle2 className="mt-1 text-[#2aa7a3]" size={22} />
-                  <div>
-                    <h3 className="text-2xl font-semibold">{service.name}</h3>
-                    <p className="mt-2 leading-7 text-slate-600">{service.text}</p>
-                    <div className="mt-3 text-sm font-semibold text-[#238b88]">{service.price}</div>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-slate-950 px-5 py-20 text-white" id="surec">
-        <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
-          {["Ön görüşme", "Bakım planı", "Takip"].map((step, index) => (
-            <article className="rounded-lg border border-white/12 bg-white/6 p-6" key={step}>
-              <div className="flex h-11 w-11 items-center justify-center rounded-md bg-[#2aa7a3] font-semibold">
-                {index + 1}
-              </div>
-              <h3 className="mt-6 text-2xl font-semibold">{step}</h3>
-              <p className="mt-3 leading-7 text-white/66">
-                Demo süreç alanı. Müşteri ne olacağını sayfada açıkça görür.
-              </p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="px-5 py-20">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_1fr] lg:items-center">
-          <div className="grid gap-4 sm:grid-cols-2">
-            {template.gallery.map((item, index) => (
-              <img alt={item.alt} className={`w-full rounded-lg object-cover ${index === 0 ? "h-80 sm:col-span-2" : "h-56"}`} key={item.src} src={item.src} />
-            ))}
-          </div>
-          <div>
-            <h2 className="text-4xl font-semibold md:text-6xl">Güven veren klinik sayfa akışı</h2>
-            <ReviewCards className="mt-8" template={template} />
-          </div>
-        </div>
-      </section>
-
-      <ContactBand template={template} />
-    </main>
+    <button
+      className={`fixed bottom-5 right-5 z-40 inline-flex h-12 items-center gap-2 rounded-full px-5 text-sm font-semibold shadow-xl ${
+        tone === "dark" ? "bg-white text-slate-950" : "bg-slate-950 text-white"
+      }`}
+      onClick={onBook}
+      type="button"
+    >
+      <CalendarCheck size={18} />
+      Randevu Al
+    </button>
   );
 }
 
 export function TemplatePreview({ template }: { template: TemplateDefinition }) {
-  if (template.layout === "classic-barber") return <ClassicBarber template={template} />;
-  if (template.layout === "premium-barber") return <PremiumBarber template={template} />;
-  if (template.layout === "urban-fade") return <UrbanFade template={template} />;
-  if (template.layout === "soft-beauty") return <SoftBeauty template={template} />;
-  if (template.layout === "luxury-beauty") return <LuxuryBeauty template={template} />;
-  return <CleanClinic template={template} />;
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const theme = themes[template.layout];
+  const tone: Tone = template.layout === "heritage-barber" || template.layout === "tattoo-fade" || template.layout === "velvet-luxury" || darkMode ? "dark" : "light";
+  const darkToggle = template.layout === "clinical-minimal" || template.layout === "editorial-grooming";
+  const shellClass = useMemo(() => {
+    if (darkMode && darkToggle) return "bg-slate-950 text-white";
+    return theme.shell;
+  }, [darkMode, darkToggle, theme.shell]);
+
+  return (
+    <main className={`min-h-screen ${shellClass}`}>
+      <Header onBook={() => setBookingOpen(true)} template={template} theme={theme} />
+      {darkToggle ? (
+        <button
+          className="fixed bottom-20 left-5 z-40 inline-flex h-11 items-center gap-2 rounded-full border border-current/20 bg-white/85 px-4 text-sm font-semibold text-slate-950 shadow-lg backdrop-blur-md"
+          onClick={() => setDarkMode((value) => !value)}
+          type="button"
+        >
+          <Moon size={17} />
+          {darkMode ? "Light" : "Dark"}
+        </button>
+      ) : null}
+      <Hero onBook={() => setBookingOpen(true)} template={template} theme={theme} />
+      <About template={template} theme={theme} />
+      <Services template={template} theme={theme} />
+      <Packages template={template} theme={theme} />
+      <Gallery template={template} theme={theme} />
+      <Reviews template={template} theme={theme} />
+      <Contact onBook={() => setBookingOpen(true)} template={template} theme={theme} />
+      <FloatingAction onBook={() => setBookingOpen(true)} tone={tone} />
+      <BookingDrawer onClose={() => setBookingOpen(false)} open={bookingOpen} template={template} theme={theme} />
+      <div className="sr-only">
+        <Scissors />
+        <Star />
+        <Zap />
+      </div>
+    </main>
+  );
 }
