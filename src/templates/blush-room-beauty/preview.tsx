@@ -4,10 +4,12 @@ import { ArrowRight, Clock, Heart, MapPin, Phone, Sparkles, Star } from "lucide-
 import Link from "next/link";
 import { BookingTrigger } from "@/components/booking";
 import { Reveal } from "@/components/reveal";
+import { getTemplateImages } from "@/config/template-images";
 import type { TemplateDefinition } from "@/config/templates";
 
 export function BlushRoomPreview({ template }: { template: TemplateDefinition }) {
   const bookingTarget = { templateName: template.name, whatsapp: template.whatsapp };
+  const images = getTemplateImages(template.slug);
 
   return (
     <main className="min-h-screen bg-[#fff5f7] text-[#3c2b32]" style={{ fontFamily: "var(--font-sans)" }}>
@@ -65,7 +67,11 @@ export function BlushRoomPreview({ template }: { template: TemplateDefinition })
             <div className="relative">
               <div className="absolute -inset-4 rounded-[40px] bg-gradient-to-br from-[#fce4ec] via-[#f8d7e0] to-[#fff5f7] blur-2xl" />
               <div className="relative rounded-[36px] border border-[#efd3dc] bg-white p-6 shadow-2xl shadow-rose-200/40">
-                <div className="aspect-[5/6] rounded-3xl" style={{ background: "linear-gradient(160deg, #fff0f4 0%, #d98aa8 100%)" }} />
+                <div className="relative aspect-[5/6] overflow-hidden rounded-3xl">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img alt={template.brand} className="h-full w-full object-cover" loading="eager" src={images.hero} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#d98aa8]/35 to-transparent" />
+                </div>
                 <div className="mt-5 flex items-center justify-between">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-widest text-[#d98aa8]">Bugün açık</p>
@@ -244,12 +250,10 @@ export function BlushRoomPreview({ template }: { template: TemplateDefinition })
                 className="overflow-hidden rounded-[32px] border border-[#efd3dc] bg-white p-3 shadow-sm shadow-rose-100/60"
                 key={item.title}
               >
-                <div
-                  className="aspect-[4/5] w-full rounded-2xl"
-                  style={{
-                    background: `linear-gradient(${140 + idx * 20}deg, #fff0f4, #d98aa8)`,
-                  }}
-                />
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img alt={item.title} className="h-full w-full object-cover" loading="lazy" src={images.gallery[idx % images.gallery.length]} />
+                </div>
                 <div className="px-2 py-3 text-center text-sm font-semibold text-[#8f6073]">{item.title}</div>
               </div>
             ))}

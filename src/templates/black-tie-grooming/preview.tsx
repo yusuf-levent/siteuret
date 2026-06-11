@@ -4,10 +4,12 @@ import { ArrowDown, ArrowUpRight, Check, Mail, MapPin, Phone } from "lucide-reac
 import Link from "next/link";
 import { BookingTrigger } from "@/components/booking";
 import { Reveal } from "@/components/reveal";
+import { getTemplateImages } from "@/config/template-images";
 import type { TemplateDefinition } from "@/config/templates";
 
 export function BlackTiePreview({ template }: { template: TemplateDefinition }) {
   const bookingTarget = { templateName: template.name, whatsapp: template.whatsapp };
+  const images = getTemplateImages(template.slug);
 
   return (
     <main className="min-h-screen bg-[#f6f4ee] text-black" style={{ fontFamily: "var(--font-sans)" }}>
@@ -60,14 +62,9 @@ export function BlackTiePreview({ template }: { template: TemplateDefinition }) 
 
           {/* Right column - editorial portrait block */}
           <div className="relative border-l border-black/10 bg-[#f6f4ee] md:col-span-5">
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(135deg, #f6f4ee 0%, #b8b8b8 50%, #090909 100%)",
-              }}
-            />
-            <div className="absolute inset-0 mix-blend-multiply opacity-40" style={{ backgroundImage: "repeating-linear-gradient(45deg, rgba(0,0,0,.15) 0 2px, transparent 2px 6px)" }} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img alt={template.brand} className="absolute inset-0 h-full w-full object-cover grayscale" loading="eager" src={images.hero} />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
             <div className="relative flex h-full flex-col justify-end p-8 text-white md:p-12">
               <div className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">Stüdyo</div>
               <div className="mt-2 text-3xl font-semibold" style={{ fontFamily: "var(--font-serif)" }}>
@@ -205,11 +202,12 @@ export function BlackTiePreview({ template }: { template: TemplateDefinition }) 
             <div className="flex gap-6">
               {template.gallery.map((item, idx) => (
                 <div className="w-72 shrink-0" key={item.title}>
-                  <div
-                    className="aspect-[3/4] w-full"
-                    style={{
-                      background: `linear-gradient(180deg, #090909, #b8b8b8 ${50 + idx * 6}%, #f6f4ee)`,
-                    }}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    alt={item.title}
+                    className="aspect-[3/4] w-full object-cover grayscale"
+                    loading="lazy"
+                    src={images.gallery[idx % images.gallery.length]}
                   />
                   <p className="mt-3 text-sm font-semibold">{item.title}</p>
                   <p className="text-xs uppercase tracking-widest text-black/50">{String(idx + 1).padStart(2, "0")} / {template.gallery.length}</p>

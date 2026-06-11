@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 import { BookingTrigger } from "@/components/booking";
 import { Reveal } from "@/components/reveal";
+import { getTemplateImages } from "@/config/template-images";
 import type { TemplateDefinition } from "@/config/templates";
 
 const processSteps = [
@@ -33,6 +34,7 @@ const hygieneNotes = [
 
 export function PureSkinPreview({ template }: { template: TemplateDefinition }) {
   const bookingTarget = { templateName: template.name, whatsapp: template.whatsapp };
+  const images = getTemplateImages(template.slug);
 
   return (
     <main className="min-h-screen bg-white text-[#102033]" style={{ fontFamily: "var(--font-sans)" }}>
@@ -94,7 +96,11 @@ export function PureSkinPreview({ template }: { template: TemplateDefinition }) 
             {/* Clean clinic visual */}
             <div className="relative">
               <div className="overflow-hidden rounded-3xl border border-[#bde8eb] bg-[#eef8fb] p-8 shadow-xl shadow-teal-100/60">
-                <div className="aspect-[5/6] w-full rounded-2xl" style={{ background: "linear-gradient(180deg, #ffffff 0%, #dff7fb 60%, #2aa7a3 100%)" }} />
+                <div className="relative aspect-[5/6] w-full overflow-hidden rounded-2xl">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img alt={template.brand} className="h-full w-full object-cover" loading="eager" src={images.hero} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2aa7a3]/35 to-transparent" />
+                </div>
                 <div className="mt-6 grid grid-cols-2 gap-3 text-xs">
                   <div className="rounded-xl bg-white p-3">
                     <p className="font-semibold text-[#2aa7a3]">Bakım sonrası</p>
@@ -257,8 +263,15 @@ export function PureSkinPreview({ template }: { template: TemplateDefinition }) 
             {template.gallery.slice(0, 6).map((item, idx) => (
               <div className="overflow-hidden rounded-2xl border border-[#bde8eb] bg-white" key={item.title}>
                 <div className="grid grid-cols-2">
-                  <div className="aspect-square" style={{ background: "linear-gradient(180deg, #ffffff, #bde8eb)" }} />
-                  <div className="aspect-square" style={{ background: "linear-gradient(180deg, #dff7fb, #2aa7a3)" }} />
+                  <div className="relative aspect-square overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img alt="Önce" className="h-full w-full object-cover grayscale" loading="lazy" src={images.gallery[(idx * 2) % images.gallery.length]} />
+                  </div>
+                  <div className="relative aspect-square overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img alt="Sonra" className="h-full w-full object-cover" loading="lazy" src={images.gallery[(idx * 2 + 1) % images.gallery.length]} />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-[#2aa7a3]/20 to-transparent" />
+                  </div>
                 </div>
                 <div className="grid grid-cols-2 px-3 py-2 text-[10px] font-semibold uppercase tracking-widest text-[#2aa7a3]">
                   <span>Önce</span>

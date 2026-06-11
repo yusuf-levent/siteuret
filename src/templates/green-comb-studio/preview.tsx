@@ -4,6 +4,7 @@ import { Clock, Leaf, MapPin, Phone, Recycle, Sprout, Sun } from "lucide-react";
 import Link from "next/link";
 import { BookingTrigger } from "@/components/booking";
 import { Reveal } from "@/components/reveal";
+import { getTemplateImages } from "@/config/template-images";
 import type { TemplateDefinition } from "@/config/templates";
 
 const productNotes = [
@@ -15,6 +16,7 @@ const productNotes = [
 
 export function GreenCombPreview({ template }: { template: TemplateDefinition }) {
   const bookingTarget = { templateName: template.name, whatsapp: template.whatsapp };
+  const images = getTemplateImages(template.slug);
 
   return (
     <main className="min-h-screen bg-[#f1f1e6] text-[#1f2a1c]" style={{ fontFamily: "var(--font-sans)" }}>
@@ -72,13 +74,10 @@ export function GreenCombPreview({ template }: { template: TemplateDefinition })
           <Reveal delay={0.1}>
             {/* Botanical mockup */}
             <div className="relative">
-              <div
-                className="aspect-[4/5] w-full overflow-hidden rounded-[40%_60%_55%_45%/55%_45%_60%_40%] shadow-2xl"
-                style={{
-                  background:
-                    "linear-gradient(160deg, #c7d1b8 0%, #6f8a62 60%, #2f3d2f 100%)",
-                }}
-              />
+              <div className="aspect-[4/5] w-full overflow-hidden rounded-[40%_60%_55%_45%/55%_45%_60%_40%] shadow-2xl">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img alt={template.brand} className="h-full w-full object-cover" loading="eager" src={images.hero} />
+              </div>
               <div className="absolute -bottom-6 -left-6 rounded-2xl border border-[#6f8a62]/30 bg-white p-4 shadow-xl">
                 <Leaf className="text-[#6f8a62]" size={22} />
                 <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-[#3a4a36]">100% bitkisel</p>
@@ -241,15 +240,17 @@ export function GreenCombPreview({ template }: { template: TemplateDefinition })
           <div className="mt-12 grid gap-4 sm:grid-cols-3">
             {template.gallery.map((item, idx) => (
               <div
-                className="aspect-square overflow-hidden p-3"
+                className="relative aspect-square overflow-hidden"
                 key={item.title}
                 style={{
-                  background: `linear-gradient(${idx * 35}deg, #c7d1b8, #6f8a62)`,
                   borderRadius: idx % 3 === 0 ? "55% 45% 65% 35%" : idx % 3 === 1 ? "35% 65% 40% 60%" : "50%",
                 }}
               >
-                <div className="flex h-full items-end p-3">
-                  <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-[#3a4a36]">{item.title}</span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img alt={item.title} className="h-full w-full object-cover" loading="lazy" src={images.gallery[idx % images.gallery.length]} />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2f3d2f]/55 to-transparent" />
+                <div className="absolute inset-x-3 bottom-3 flex justify-start">
+                  <span className="rounded-full bg-white/95 px-3 py-1 text-xs font-semibold text-[#3a4a36]">{item.title}</span>
                 </div>
               </div>
             ))}

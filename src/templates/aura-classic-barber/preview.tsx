@@ -4,10 +4,12 @@ import { Clock, MapPin, Phone, Scissors, Star } from "lucide-react";
 import Link from "next/link";
 import { BookingTrigger } from "@/components/booking";
 import { Reveal } from "@/components/reveal";
+import { getTemplateImages } from "@/config/template-images";
 import type { TemplateDefinition } from "@/config/templates";
 
 export function AuraClassicPreview({ template }: { template: TemplateDefinition }) {
   const bookingTarget = { templateName: template.name, whatsapp: template.whatsapp };
+  const images = getTemplateImages(template.slug);
 
   return (
     <main className="min-h-screen bg-[#1a0f0a] text-[#f5dfbd]" style={{ fontFamily: "var(--font-serif)" }}>
@@ -223,11 +225,12 @@ export function AuraClassicPreview({ template }: { template: TemplateDefinition 
                     transform: `rotate(${idx % 2 === 0 ? "-2" : "2"}deg)`,
                   }}
                 >
-                  <div
-                    className="aspect-[4/3] w-full"
-                    style={{
-                      background: `linear-gradient(135deg, #261711, #b57a3a)`,
-                    }}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    alt={item.title}
+                    className="aspect-[4/3] w-full object-cover"
+                    loading="lazy"
+                    src={images.gallery[idx % images.gallery.length]}
                   />
                   <div className="mt-4 text-center font-semibold text-[#1a0f0a]" style={{ fontFamily: "var(--font-serif)" }}>
                     {item.title}
@@ -295,17 +298,13 @@ export function AuraClassicPreview({ template }: { template: TemplateDefinition 
               target={bookingTarget}
             />
           </div>
-          <div
-            className="min-h-72 rounded-sm border border-[#b57a3a]/40"
-            style={{
-              background: `linear-gradient(135deg, #2c1a11, #b57a3a 80%)`,
-            }}
-          >
-            <div className="flex h-full items-center justify-center text-center">
-              <div>
-                <div className="text-xs uppercase tracking-[0.4em] text-[#f5dfbd]/70">Konum</div>
-                <div className="mt-2 text-2xl font-semibold text-[#f5dfbd]">{template.mapLabel}</div>
-              </div>
+          <div className="relative min-h-72 overflow-hidden rounded-sm border border-[#b57a3a]/40">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img alt={template.mapLabel} className="absolute inset-0 h-full w-full object-cover" loading="lazy" src={images.about} />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1a0f0a] via-[#1a0f0a]/30 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-6">
+              <div className="text-xs uppercase tracking-[0.4em] text-[#f5dfbd]/80">Konum</div>
+              <div className="mt-1 text-2xl font-semibold text-[#f5dfbd]">{template.mapLabel}</div>
             </div>
           </div>
         </div>

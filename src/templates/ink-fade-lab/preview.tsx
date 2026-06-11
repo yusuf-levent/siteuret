@@ -4,10 +4,12 @@ import { ArrowRight, Flame, MapPin, Phone, Zap } from "lucide-react";
 import Link from "next/link";
 import { BookingTrigger } from "@/components/booking";
 import { Reveal } from "@/components/reveal";
+import { getTemplateImages } from "@/config/template-images";
 import type { TemplateDefinition } from "@/config/templates";
 
 export function InkFadePreview({ template }: { template: TemplateDefinition }) {
   const bookingTarget = { templateName: template.name, whatsapp: template.whatsapp };
+  const images = getTemplateImages(template.slug);
 
   return (
     <main className="min-h-screen bg-[#09090d] text-white" style={{ fontFamily: "var(--font-sans)" }}>
@@ -80,14 +82,16 @@ export function InkFadePreview({ template }: { template: TemplateDefinition }) {
           <div className="relative lg:col-span-5">
             {/* Stacked sticker stack */}
             <div className="relative h-[420px]">
-              <div
-                className="absolute left-4 top-4 h-72 w-72 rotate-6 border-4 border-[#d7ff38] bg-[#0b0b0f]"
-                style={{ background: "linear-gradient(135deg, #09090d, #ff3d81)" }}
-              />
-              <div
-                className="absolute right-2 top-20 h-64 w-64 -rotate-3 border-4 border-white bg-black"
-                style={{ background: "linear-gradient(180deg, #d7ff38, #09090d)" }}
-              />
+              <div className="absolute left-4 top-4 h-72 w-72 rotate-6 overflow-hidden border-4 border-[#d7ff38]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img alt={template.brand} className="h-full w-full object-cover" loading="eager" src={images.hero} />
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#ff3d81]/40 via-transparent to-[#d7ff38]/20 mix-blend-screen" />
+              </div>
+              <div className="absolute right-2 top-20 h-64 w-64 -rotate-3 overflow-hidden border-4 border-white">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img alt="" className="h-full w-full object-cover" loading="lazy" src={images.about} />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#d7ff38]/30 to-black/40 mix-blend-multiply" />
+              </div>
               <div
                 className="absolute bottom-6 left-12 flex h-40 w-40 -rotate-12 items-center justify-center border-4 border-[#ff3d81] bg-[#09090d]"
               >
@@ -235,10 +239,15 @@ export function InkFadePreview({ template }: { template: TemplateDefinition }) {
                 className="relative aspect-square overflow-hidden border-2 border-white/10"
                 key={item.title}
                 style={{
-                  background: `linear-gradient(${idx * 45}deg, #09090d, ${idx % 2 ? "#d7ff38" : "#ff3d81"})`,
                   transform: idx % 3 === 0 ? "rotate(-1deg)" : "rotate(1deg)",
                 }}
               >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img alt={item.title} className="h-full w-full object-cover" loading="lazy" src={images.gallery[idx % images.gallery.length]} />
+                <div
+                  className="absolute inset-0 mix-blend-screen"
+                  style={{ background: `linear-gradient(${idx * 45}deg, transparent, ${idx % 2 ? "rgba(215,255,56,.35)" : "rgba(255,61,129,.35)"})` }}
+                />
                 <div className="absolute inset-x-2 bottom-2 bg-black/80 px-2 py-1 text-[10px] font-black uppercase tracking-widest text-[#d7ff38]">
                   {item.title}
                 </div>

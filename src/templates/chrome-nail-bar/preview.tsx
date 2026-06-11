@@ -4,10 +4,12 @@ import { ArrowRight, Heart, MapPin, MessageCircle, Phone, Sparkles, Zap } from "
 import Link from "next/link";
 import { BookingTrigger } from "@/components/booking";
 import { Reveal } from "@/components/reveal";
+import { getTemplateImages } from "@/config/template-images";
 import type { TemplateDefinition } from "@/config/templates";
 
 export function ChromeNailPreview({ template }: { template: TemplateDefinition }) {
   const bookingTarget = { templateName: template.name, whatsapp: template.whatsapp };
+  const images = getTemplateImages(template.slug);
 
   return (
     <main className="min-h-screen bg-[#fff0fb] text-[#251232]" style={{ fontFamily: "var(--font-sans)" }}>
@@ -79,22 +81,23 @@ export function ChromeNailPreview({ template }: { template: TemplateDefinition }
           </Reveal>
           <Reveal delay={0.08}>
             <div className="relative h-[520px]">
-              <div
-                className="absolute inset-6 rounded-[44px] shadow-2xl shadow-purple-300/30"
-                style={{ background: "linear-gradient(135deg, #ff4fb8, #9b5cff 50%, #7c3cff)" }}
-              />
-              <div
-                className="absolute right-0 top-12 h-44 w-44 rounded-3xl bg-white p-3 shadow-2xl"
-                style={{ transform: "rotate(8deg)" }}
-              >
-                <div className="aspect-square rounded-2xl" style={{ background: "linear-gradient(135deg, #fff0fb, #ff4fb8)" }} />
+              <div className="absolute inset-6 overflow-hidden rounded-[44px] shadow-2xl shadow-purple-300/30">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img alt={template.brand} className="h-full w-full object-cover" loading="eager" src={images.hero} />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#ff4fb8]/30 via-[#9b5cff]/20 to-[#7c3cff]/40 mix-blend-multiply" />
+              </div>
+              <div className="absolute right-0 top-12 h-44 w-44 rounded-3xl bg-white p-3 shadow-2xl" style={{ transform: "rotate(8deg)" }}>
+                <div className="relative aspect-square overflow-hidden rounded-2xl">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img alt="Chrome" className="h-full w-full object-cover" loading="lazy" src={images.gallery[0]} />
+                </div>
                 <p className="mt-2 text-center text-xs font-black uppercase tracking-widest text-[#ff4fb8]">Chrome ✦</p>
               </div>
-              <div
-                className="absolute -bottom-2 left-2 h-40 w-40 rounded-3xl bg-white p-3 shadow-2xl"
-                style={{ transform: "rotate(-6deg)" }}
-              >
-                <div className="aspect-square rounded-2xl" style={{ background: "linear-gradient(135deg, #7c3cff, #251232)" }} />
+              <div className="absolute -bottom-2 left-2 h-40 w-40 rounded-3xl bg-white p-3 shadow-2xl" style={{ transform: "rotate(-6deg)" }}>
+                <div className="relative aspect-square overflow-hidden rounded-2xl">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img alt="Lash" className="h-full w-full object-cover" loading="lazy" src={images.gallery[2]} />
+                </div>
                 <p className="mt-2 text-center text-xs font-black uppercase tracking-widest text-[#7c3cff]">Lash pop</p>
               </div>
               <div
@@ -256,10 +259,15 @@ export function ChromeNailPreview({ template }: { template: TemplateDefinition }
                 className="relative aspect-square overflow-hidden rounded-2xl"
                 key={item.title}
                 style={{
-                  background: `linear-gradient(${idx * 45}deg, #ff4fb8, #9b5cff ${50 + (idx * 5) % 30}%, #7c3cff)`,
                   transform: idx % 3 === 0 ? "rotate(-1deg)" : "rotate(1deg)",
                 }}
               >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img alt={item.title} className="h-full w-full object-cover" loading="lazy" src={images.gallery[idx % images.gallery.length]} />
+                <div
+                  className="absolute inset-0 mix-blend-screen"
+                  style={{ background: `linear-gradient(${idx * 45}deg, rgba(255,79,184,.25), rgba(124,60,255,.25))` }}
+                />
                 <div className="absolute left-2 top-2 rounded-full bg-white px-2 py-0.5 text-[10px] font-black uppercase text-[#7c3cff]">
                   #{idx + 1}
                 </div>

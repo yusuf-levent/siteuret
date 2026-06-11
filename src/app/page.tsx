@@ -20,6 +20,7 @@ import { Reveal } from "@/components/reveal";
 import { BookingTrigger, useBooking } from "@/components/booking";
 import { templates } from "@/config/templates";
 import type { TemplateCategory, TemplateDefinition } from "@/config/templates";
+import { getTemplateImages } from "@/config/template-images";
 
 const filters = ["Tümü", "Berber", "Güzellik Salonu"] as const;
 type Filter = (typeof filters)[number];
@@ -234,19 +235,21 @@ function cardClasses(template: TemplateDefinition) {
 
 function TemplateThumbnail({ template }: { template: TemplateDefinition }) {
   const [a, b, c] = template.thumbnail.palette;
+  const images = getTemplateImages(template.slug);
   return (
-    <div
-      className="relative h-44 w-full overflow-hidden rounded-md p-5 text-white"
-      style={{
-        background: `linear-gradient(135deg, ${a} 0%, ${b} 60%, ${c} 100%)`,
-      }}
-    >
-      <div className="absolute inset-0 opacity-25 mix-blend-overlay" style={{ background: `radial-gradient(circle at 20% 20%, white, transparent 45%)` }} />
+    <div className="relative h-44 w-full overflow-hidden rounded-md p-5 text-white">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img alt={template.name} className="absolute inset-0 h-full w-full object-cover" loading="lazy" src={images.hero} />
+      <div
+        className="absolute inset-0 mix-blend-multiply opacity-80"
+        style={{ background: `linear-gradient(135deg, ${a} 0%, ${b}cc 60%, ${c}99 100%)` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
       <div className="relative flex h-full flex-col justify-between">
-        <div className="text-xs font-bold uppercase tracking-widest opacity-80">{template.category}</div>
+        <div className="text-xs font-bold uppercase tracking-widest opacity-90">{template.category}</div>
         <div>
-          <div className="text-lg font-semibold leading-tight">{template.thumbnail.title}</div>
-          <p className="mt-1 text-sm leading-5 text-white/80">{template.thumbnail.note}</p>
+          <div className="text-lg font-semibold leading-tight drop-shadow">{template.thumbnail.title}</div>
+          <p className="mt-1 text-sm leading-5 text-white/90 drop-shadow">{template.thumbnail.note}</p>
         </div>
       </div>
     </div>

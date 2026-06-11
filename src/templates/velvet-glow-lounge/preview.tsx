@@ -4,10 +4,12 @@ import { Crown, Diamond, Mail, MapPin, Phone, Sparkles, Star } from "lucide-reac
 import Link from "next/link";
 import { BookingTrigger } from "@/components/booking";
 import { Reveal } from "@/components/reveal";
+import { getTemplateImages } from "@/config/template-images";
 import type { TemplateDefinition } from "@/config/templates";
 
 export function VelvetGlowPreview({ template }: { template: TemplateDefinition }) {
   const bookingTarget = { templateName: template.name, whatsapp: template.whatsapp };
+  const images = getTemplateImages(template.slug);
 
   return (
     <main className="min-h-screen bg-[#2b1019] text-[#f7ead9]" style={{ fontFamily: "var(--font-serif)" }}>
@@ -99,13 +101,12 @@ export function VelvetGlowPreview({ template }: { template: TemplateDefinition }
       <section className="px-6 py-24" id="vip">
         <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[1fr_1fr] lg:items-center">
           <Reveal>
-            <div
-              className="aspect-[5/6] w-full"
-              style={{
-                background:
-                  "linear-gradient(160deg, #d5b16b 0%, #7b2137 50%, #2b1019 100%)",
-              }}
-            />
+            <div className="relative aspect-[5/6] w-full overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img alt={template.brand} className="h-full w-full object-cover" loading="eager" src={images.hero} />
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#2b1019]/70 via-[#7b2137]/30 to-[#d5b16b]/15 mix-blend-multiply" />
+              <div className="absolute inset-3 border border-[#d5b16b]/40" />
+            </div>
           </Reveal>
           <Reveal delay={0.05}>
             <p className="text-xs font-bold uppercase tracking-[0.4em] text-[#d5b16b]" style={{ fontFamily: "var(--font-sans)" }}>Hikaye</p>
@@ -232,12 +233,10 @@ export function VelvetGlowPreview({ template }: { template: TemplateDefinition }
                 className={`overflow-hidden border-2 border-[#d5b16b]/30 ${idx === 0 ? "md:col-span-2 md:row-span-2" : ""}`}
                 key={item.title}
               >
-                <div
-                  className={`relative w-full ${idx === 0 ? "aspect-[5/6]" : "aspect-[4/5]"}`}
-                  style={{
-                    background: `linear-gradient(${135 + idx * 30}deg, #2b1019, #7b2137 50%, #d5b16b)`,
-                  }}
-                >
+                <div className={`relative w-full ${idx === 0 ? "aspect-[5/6]" : "aspect-[4/5]"}`}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img alt={item.title} className="h-full w-full object-cover" loading="lazy" src={images.gallery[idx % images.gallery.length]} />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#2b1019]/55 via-transparent to-[#d5b16b]/15 mix-blend-multiply" />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#2b1019] to-transparent p-5">
                     <p className="text-xs font-semibold uppercase tracking-[0.4em] text-[#d5b16b]" style={{ fontFamily: "var(--font-sans)" }}>
                       {String(idx + 1).padStart(2, "0")} / Velvet
