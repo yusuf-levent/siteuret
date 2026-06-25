@@ -93,7 +93,7 @@ export const templates: TemplateDefinition[] = [
   chromeNail,
 ] as TemplateDefinition[];
 
-export const WHATSAPP_PHONE = "905XXXXXXXXX";
+export const WHATSAPP_PHONE = "905362913267";
 
 export function whatsappUrl(message: string, phone = WHATSAPP_PHONE) {
   return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
